@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Domain.UserAgg.Enums
 {
+    //Gender User
     public enum Gender
     {
         None,

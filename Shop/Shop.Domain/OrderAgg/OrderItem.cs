@@ -25,16 +25,19 @@ namespace Shop.Domain.OrderAgg
         public int Price { get;private set; }
         public int TotalPrice => Price * Count;
 
+        //Change Count OrderItem
         public void ChangeCount(int newCount)
         {
                Guard(0,newCount);
                Count = newCount;
         }
+        //Set Price OrderItem
         public void SetPrice(int newPrice)
         {
             Guard(newPrice,0);
             Price = newPrice;
         }
+        //Validation OrderItem 
         public void Guard(int price,int count)
         {
             if (price != 0)

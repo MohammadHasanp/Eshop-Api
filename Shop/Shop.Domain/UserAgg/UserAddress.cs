@@ -9,17 +9,25 @@ namespace Shop.Domain.UserAgg
 {
     public class UserAddress : BaseEntity
     {
+        //Relation With User
         public long UserId { get; internal set; }
+        //
         public string Shire { get; private set; }
+        //City User
         public string City { get; private set; }
+        //Code Post
         public string PostalCode { get; private set; }
+        //Address Post
         public string PostalAddress { get; private set; }
+        //Phone User
         public string PhoneNumber { get; private set; }
+        //Name User
         public string Name { get; private set; }
         public string Family { get; private set; }
         public string NationalCode { get; private set; }
+        //User Address Activation
         public bool IsActive { get; private set; }
-
+        //Set Address User
         public UserAddress(string shire, string city, string postalCode, string postalAddress, string phoneNumber, string name, string family, string nationalCode)
         {
             Guard(shire,city,postalCode,postalAddress,phoneNumber,name,family,nationalCode);
@@ -33,11 +41,12 @@ namespace Shop.Domain.UserAgg
             NationalCode = nationalCode;
             IsActive = false;
         }
+        //Set Active Address User
         public void SetActive()
         {
             IsActive = true;
         }
-
+        //Edit Addres User
         public void Edit(string shire, string city, string postalCode, string postalAddress, string phoneNumber, string name, string family, string nationalCode)
         {
             Guard(shire,city,postalCode,postalAddress,phoneNumber,name,family,nationalCode);
@@ -50,9 +59,10 @@ namespace Shop.Domain.UserAgg
             Family = family;
             NationalCode = nationalCode;
         }
+        //Validation Address User
         public void Guard(string shire, string city, string postalCode, string postalAddress, string phoneNumber, string name, string family, string nationalCode)
         {
-            NullOrEmptyDomainDataException.ValidatePairs((shire, nameof(shire)), (city, nameof(city)), (postalCode, nameof(postalCode)), (postalAddress, nameof(postalAddress)),(name,nameof(name)),(family,nameof(family)),(nationalCode,nameof(nationalCode)));
+            NullOrEmptyDomainDataException.CheckString((shire, nameof(shire)), (city, nameof(city)), (postalCode, nameof(postalCode)), (postalAddress, nameof(postalAddress)),(name,nameof(name)),(family,nameof(family)),(nationalCode,nameof(nationalCode)));
             
             if (!IranianNationalIdChecker.IsValid(nationalCode))
                 throw new InvalidDomainDataException("NationalCode InValid");

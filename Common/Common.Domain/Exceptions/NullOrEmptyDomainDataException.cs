@@ -7,7 +7,7 @@
         {
 
         }
-        public static void ValidatePairs(params (string Value, string Key)[] items)
+        public static void CheckString(params (string Value, string Key)[] items)
         {
             foreach (var (value, Key) in items)
             {

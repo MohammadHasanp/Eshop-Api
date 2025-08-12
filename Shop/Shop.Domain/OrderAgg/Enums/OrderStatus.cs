@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Domain.OrderAgg.Enums
 {
+    //Type Status
     public enum OrderStatus
     {
         Pennding,

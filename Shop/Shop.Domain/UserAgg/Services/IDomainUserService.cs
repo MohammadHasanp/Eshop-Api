@@ -9,7 +9,9 @@ namespace Shop.Domain.UserAgg.Services
 {
     public interface IDomainUserService
     {
+        //Existence of email
         bool IsEmailExist(string email);
+        //Existence of Phone
         bool IsPhoneNumberExist(string phone);
     }
 }

@@ -21,13 +21,20 @@ namespace Shop.Domain.OrderAgg
             OrderItems = new List<OrderItem>();
         }
         public long UserId { get; private set; }
+        //Status Order
         public OrderStatus Status { get; private set; }
+        //Discount To Order
         public OrderDiscount? Discount { get; private set; }
-        public OrderAddress Address { get; private set; }
+        // Last time the order status changed
         public DateTime LastUpdate { get; private set; }
+        //ShippingMethode Order
         public ShippingMethode? ShippingMethode { get; set; }
+        //Relation With OrderItem
         public List<OrderItem> OrderItems { get; private set; }
+        //Relation with OrderAddress
+        public OrderAddress Address { get; private set; }
 
+        //Sum Total Order Related User
         public int TotalPrice
         {
             get
@@ -41,12 +48,15 @@ namespace Shop.Domain.OrderAgg
                 return TotalPrice;
             }
         }
+        //Count Total Order User
         public int ItemCount => OrderItems.Count;
 
+        //Add In OrderItem
         public void AddItem(OrderItem orderItem)
         {
             OrderItems.Add(orderItem);
         }
+        //Delete In OrderItem
         public void DeleteItem(long itemId)
         {
             var oldItem = OrderItems.FirstOrDefault(o => o.Id == itemId);
@@ -55,15 +65,17 @@ namespace Shop.Domain.OrderAgg
                 OrderItems.Remove(oldItem);
             }
         }
+        //Change Count OrderItem
         public void ChangeCountItem(long itemId, int newCount)
         {
             var item = OrderItems.FirstOrDefault(o => o.Id == itemId);
 
             if (item == null)
-                throw new NullOrEmptyDomainDataException("Not Found Item");
+                 throw new NullOrEmptyDomainDataException("Not Found Item");
 
             item.ChangeCount(newCount);
         }
+        //Change Status OrderItem
         public void ChangeStatus(OrderStatus status)
         {
             Status = status;
