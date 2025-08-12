@@ -20,7 +20,6 @@ namespace Shop.Domain.OrderAgg
             Status = OrderStatus.Pennding;
             OrderItems = new List<OrderItem>();
         }
-
         public long UserId { get; private set; }
         public OrderStatus Status { get; private set; }
         public OrderDiscount? Discount { get; private set; }
@@ -41,7 +40,6 @@ namespace Shop.Domain.OrderAgg
 
                 return TotalPrice;
             }
-
         }
         public int ItemCount => OrderItems.Count;
 
@@ -56,7 +54,6 @@ namespace Shop.Domain.OrderAgg
             {
                 OrderItems.Remove(oldItem);
             }
-
         }
         public void ChangeCountItem(long itemId, int newCount)
         {
@@ -72,11 +69,10 @@ namespace Shop.Domain.OrderAgg
             Status = status;
             LastUpdate = DateTime.Now;
         }
-
+        //Fainally Order
         public void Checkout(OrderAddress address)
         {
             Address = address;
-
         }
     }
 }
