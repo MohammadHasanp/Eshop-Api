@@ -45,9 +45,9 @@ namespace Shop.Domain.UserAgg
             Email = email;
             PhoneNumber = phoneNumber;
             Gender = gender;
-            //Roles = new List<UserRole>();
-            //Wallets = new List<Wallet>();
-            //Addresses = new List<UserAddress>();
+            Roles = new List<UserRole>();
+            Wallets = new List<Wallet>();
+            Addresses = new List<UserAddress>();
         }
         //Edit User
         public void Edit(string userName, string fullName, string email, string phoneNumber, Gender gender, IDomainUserService domainUserService)

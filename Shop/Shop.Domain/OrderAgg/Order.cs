@@ -12,14 +12,16 @@ namespace Shop.Domain.OrderAgg
 {
     public class Order : AggregateRoot
     {
+        //For EfCore
         private Order() { }
-
+        //Set Order
         public Order(long userId)
         {
             UserId = userId;
             Status = OrderStatus.Pennding;
             OrderItems = new List<OrderItem>();
         }
+        //Relation With User
         public long UserId { get; private set; }
         //Status Order
         public OrderStatus Status { get; private set; }
@@ -34,7 +36,7 @@ namespace Shop.Domain.OrderAgg
         //Relation with OrderAddress
         public OrderAddress Address { get; private set; }
 
-        //Sum Total Order Related User
+        //Sum Total Price Order
         public int TotalPrice
         {
             get

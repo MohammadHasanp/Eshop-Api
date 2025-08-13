@@ -1,4 +1,5 @@
 ﻿using Common.Domain;
+using Common.Domain.Exceptions;
 using Shop.Domain.SellerAgg.Enums;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace Shop.Domain.SellerAgg
         public string NationalCode { get; private set; }
         //Status Seller
         public SellerStatus SellerStatus { get; private set; }
+        //
         public DateTime? LastUpdate { get; private set; }
         //Relation With SellerInvantory
         public List<SellerInventory> SellerInventories { get; private set; }
@@ -69,6 +71,7 @@ namespace Shop.Domain.SellerAgg
             if (inventory == null)
                 throw new NullOrEmptyDomainDataException("Not Found Inventory");
             SellerInventories.Remove(inventory);
+
         }
         //Validation Seller
         public void Guard(string shopName, string nationalCode)

@@ -11,6 +11,7 @@ namespace Shop.Domain.OrderAgg
 {
     public class OrderItem:BaseEntity
     {
+        //Set OrderItem
         public OrderItem(long inventoryId, int count, int price)
         {
             Guard(price,count);
@@ -18,11 +19,15 @@ namespace Shop.Domain.OrderAgg
             Count = count;
             Price = price;
         }
-
+        //Relation With Order
         public long OrderId { get; internal set; }
+        //
         public long InventoryId { get;private set; }
+        //Count Order
         public int Count { get;private set; }
+        //Price Order
         public int Price { get;private set; }
+        //Total Price Order
         public int TotalPrice => Price * Count;
 
         //Change Count OrderItem

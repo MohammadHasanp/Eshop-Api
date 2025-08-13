@@ -8,7 +8,7 @@ namespace Shop.Domain.SellerAgg
         //Relation with Seller
         public long SellerId { get;internal set; }
         //Relation With Product
-        public long ProductId { get;private set; }//Internal
+        public long ProductId { get;private set; }
         //Price Inventory
         public int Price { get;private set; }
         //Count Inventory

@@ -23,7 +23,9 @@ namespace Shop.Domain.UserAgg
         public string PhoneNumber { get; private set; }
         //Name User
         public string Name { get; private set; }
+        //Family User
         public string Family { get; private set; }
+        //Nationalcode User
         public string NationalCode { get; private set; }
         //User Address Activation
         public bool IsActive { get; private set; }
