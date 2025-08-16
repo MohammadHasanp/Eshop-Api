@@ -17,7 +17,7 @@ namespace Shop.Domain.CategoryAgg
         public string Title { get; private set; }
         public string Slug { get;private set; }
         public SeoData SeoData{ get;private set; }
-        public long PrantId { get;private set; }
+        public long? PrantId { get;private set; }
         public List<Category> Childs { get; set; }
 
         private Category() 
@@ -26,7 +26,7 @@ namespace Shop.Domain.CategoryAgg
 
         }
 
-        public Category(string title, string slug, SeoData seoData,ICategoryDomainSlug categoryDomain)
+        public Category(string title, string slug, SeoData seoData,ICategoryDomainServices categoryDomain)
         {
             slug = slug?.ToSlug();
             Guard(title, slug, categoryDomain);
@@ -35,7 +35,7 @@ namespace Shop.Domain.CategoryAgg
             SeoData = seoData;
             Childs = new List<Category>();
         }
-        public void Edit(string title,string slug,SeoData seoData,ICategoryDomainSlug categoryDomain)
+        public void Edit(string title,string slug,SeoData seoData,ICategoryDomainServices categoryDomain)
         {
             slug = slug?.ToSlug();
             Guard(title,slug,categoryDomain);
@@ -43,14 +43,14 @@ namespace Shop.Domain.CategoryAgg
             Slug = slug;
             SeoData = seoData;
         }
-        public void AddChild(string title,string slug,SeoData seoData,ICategoryDomainSlug categoryDomain)
+        public void AddChild(string title,string slug,SeoData seoData,ICategoryDomainServices categoryDomain)
         {
             Childs.Add(new Category(title, slug, seoData, categoryDomain)
             {
                 PrantId = Id
             });
         }
-        public void Guard(string title,string slug,ICategoryDomainSlug categoryDomain)
+        public void Guard(string title,string slug,ICategoryDomainServices categoryDomain)
         {
             NullOrEmptyDomainDataException.CheckString((title,nameof(title)),(slug,nameof(slug)));
             if (Slug != slug)

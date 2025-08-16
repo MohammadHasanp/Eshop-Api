@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Domain.CategoryAgg.Services
 {
-    public interface ICategoryDomainSlug
+    public interface ICategoryDomainServices
     {
         bool IsExistSlug(string slug);
     }

@@ -6,4 +6,44 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Comments\ChangeStatus\" />
+    <Folder Include="Comments\Edit\" />
+    <Folder Include="Comments\Create\" />
+    <Folder Include="Orders\RemoveItem\" />
+    <Folder Include="Orders\ChangeCount\" />
+    <Folder Include="Orders\AddItem\" />
+    <Folder Include="Products\AddImage\" />
+    <Folder Include="Products\Edit\" />
+    <Folder Include="Products\Create\" />
+    <Folder Include="Products\RemoveImage\" />
+    <Folder Include="Roles\Edit\" />
+    <Folder Include="Roles\Create\" />
+    <Folder Include="Sellers\ChangeStatus\" />
+    <Folder Include="Sellers\Edit\" />
+    <Folder Include="Sellers\Create\" />
+    <Folder Include="Sellers\NewFolder - Copy %282%29\" />
+    <Folder Include="Sellers\EditInventory\" />
+    <Folder Include="Sellers\AddInventory\" />
+    <Folder Include="Sellers\DeleteInventory\" />
+    <Folder Include="SiteEntities\Banner\Edit\" />
+    <Folder Include="SiteEntities\Banner\Create\" />
+    <Folder Include="SiteEntities\Banner\Delete\" />
+    <Folder Include="SiteEntities\Slider\Edit\" />
+    <Folder Include="SiteEntities\Slider\Create\" />
+    <Folder Include="SiteEntities\Slider\Delete\" />
+    <Folder Include="Users\AddAddress\" />
+    <Folder Include="Users\ChargeWallet\" />
+    <Folder Include="Users\DeleteAddress\" />
+    <Folder Include="Users\EditAddress\" />
+    <Folder Include="Users\Register\" />
+    <Folder Include="Users\Edit\" />
+    <Folder Include="Users\Create\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Common.Application\Common.Application.csproj" />
+    <ProjectReference Include="..\Shop.Domain\Shop.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
