@@ -2,10 +2,11 @@
 using Common.Domain.Exceptions;
 using Common.Domain.Utilitis;
 using Common.Domain.ValueObjects;
-using Shop.Domain.ProductAgg.Services;
+using Shop.Domain.ProductAgg.DomainServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace Shop.Domain.ProductAgg
         //Title Product
         public string Title { get; private set; }
         //Image Product
-        public string ImagesName { get; private set; }
+        public string ImageName { get; private set; }
         //Description Product
         public string Description { get; private set; }
         //Catogore Product
@@ -36,12 +37,13 @@ namespace Shop.Domain.ProductAgg
         //Relation with Product Specification
         public List<ProductSpecification> Specifications { get; private set; }
         //Set Product
-        public Product(string title, string imagesName, string description, long categoryId, long subCategoryId
+        public Product(string title,string imageName, string description, long categoryId, long subCategoryId
             , long secondarySubCategory, string slug, SeoData seoData,IProductService productService)
         {
-            Guard(title, imagesName, description, slug, productService);
+            NullOrEmptyDomainDataException.CheckString((imageName,nameof(imageName)));
+            Guard(title, description, slug, productService);
             Title = title;
-            ImagesName = imagesName;
+            ImageName = imageName;
             Description = description;
             CategoryId = categoryId;
             SubCategoryId = subCategoryId;
@@ -52,12 +54,11 @@ namespace Shop.Domain.ProductAgg
             //Images = new List<ProductImage>();
         }
         //Edit Product
-        public void Edit(string title, string imagesName, string description, long categoryId, long subCategoryId
+        public void Edit(string title, string description, long categoryId, long subCategoryId
             , long secondarySubCategory, string slug, SeoData seoData,IProductService productService)
         {
-            Guard(title,imagesName,description,slug,productService);
+            Guard(title,description,slug,productService);
             Title = title;
-            ImagesName = imagesName;
             Description = description;
             CategoryId = categoryId;
             SubCategoryId = subCategoryId;
@@ -78,17 +79,24 @@ namespace Shop.Domain.ProductAgg
             Specifications = specifications;
         }
         //Remove Image
-        public void RemoveImage(long imagesId)
+        public string RemoveImage(long imagesId)
         {
             var oldImage = Images.FirstOrDefault(i => i.Id == imagesId);
             if (oldImage == null)
                 throw new NullOrEmptyDomainDataException("Not Found Image");
             Images.Remove(oldImage);
+            return oldImage.ImageName;
+        }
+        //Ser Image Product
+        public void SetImageProduct(string imageName)
+        {
+            NullOrEmptyDomainDataException.CheckString((imageName, nameof(imageName)));
+            ImageName = imageName;
         }
         //Validation
-        public void Guard(string title, string imageName, string description, string slug, IProductService service)
+        public void Guard(string title, string description, string slug, IProductService service)
         {
-            NullOrEmptyDomainDataException.CheckString((title, nameof(title)), (imageName, nameof(imageName))
+            NullOrEmptyDomainDataException.CheckString((title, nameof(title))
                 , (description, nameof(description)), (slug.ToSlug(), nameof(slug)));
             if (Slug != slug)
                 if (service.IsExistSlug(slug.ToSlug()))

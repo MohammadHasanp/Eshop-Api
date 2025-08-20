@@ -7,12 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Products\AddImage\" />
-    <Folder Include="Products\Edit\" />
-    <Folder Include="Products\Create\" />
-    <Folder Include="Products\RemoveImage\" />
-    <Folder Include="Roles\Edit\" />
-    <Folder Include="Roles\Create\" />
     <Folder Include="Sellers\ChangeStatus\" />
     <Folder Include="Sellers\Edit\" />
     <Folder Include="Sellers\Create\" />

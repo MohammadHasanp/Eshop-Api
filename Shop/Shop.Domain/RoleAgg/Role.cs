@@ -22,8 +22,8 @@ namespace Shop.Domain.RoleAgg
             Title = title;
             RolePermissions = rolePermissions;
         }
-        //Set Role
-        public Role(string title)
+        //Edit Title
+        public void Edit(string title)
         {
             NullOrEmptyDomainDataException.CheckString((title, nameof(title)));
             Title = title;
@@ -31,15 +31,9 @@ namespace Shop.Domain.RoleAgg
         //For EfCore
         private Role() { }
         //Set Permission
-        public void SerPermission(List<RolePermission> permissions)
+        public void SetPermission(List<RolePermission> permissions)
         {
             RolePermissions = permissions;
-        }
-        //Set Title
-        public void SetTitle(string title)
-        {
-            NullOrEmptyDomainDataException.CheckString((title, nameof(title)));
-            Title = title;
         }
     }
 }
