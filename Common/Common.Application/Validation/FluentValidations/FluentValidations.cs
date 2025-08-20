@@ -34,8 +34,8 @@ namespace Common.Application.Validation.FluentValidations
         {
             return ruleBuilder.Custom((phoneNumber, context) =>
             {
-               if(string.IsNullOrWhiteSpace(phoneNumber) || phoneNumber.Length is < 11 or > 11)
-                   context.AddFailure(errorMessage);
+                if (string.IsNullOrWhiteSpace(phoneNumber) || phoneNumber.Length is < 11 or > 11)
+                    context.AddFailure(errorMessage);
 
             });
         }
@@ -51,6 +51,14 @@ namespace Common.Application.Validation.FluentValidations
                 {
                     context.AddFailure(errorMessage);
                 }
+            });
+        }
+        public static IRuleBuilderOptionsConditions<T, string> ValidNationalCode<T>(this IRuleBuilder<T, string> ruleBuilder, string errorMessage = "کد ملی نامعتبر است")
+        {
+            return ruleBuilder.Custom((nationalCode, context) =>
+            {
+                if (!IranianNationalIdChecker.IsValid(nationalCode))
+                     context.AddFailure(errorMessage);
             });
         }
     }
