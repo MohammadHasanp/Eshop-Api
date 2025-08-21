@@ -8,7 +8,9 @@ namespace Shop.Application._Utilities
 {
     public class Directories
     {
-        public const string ProductImages = "wwwroot/Images/Product";
-        public const string ProductGaleryImages = "wwwroot/Images/Product/Galery";
+        public const string ProductImages = "wwwroot/Images/Products";
+        public const string ProductGalleryImages = "wwwroot/Images/Product/Gallery";
+        public const string BannerImages = "wwwroot/Images/Banners";
+        public const string SliderImages = "wwwroot/Images/Sliders";
     }
 }

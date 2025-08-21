@@ -64,7 +64,7 @@ namespace Shop.Domain.UserAgg
         {
             return new User("","",password,email,phoneNumber,Gender.None,domainUserService);
         }
-        //Add Address user
+        //AddAsync Address user
         public void AddAddress( UserAddress Address)
         {
             Address.UserId = Id;

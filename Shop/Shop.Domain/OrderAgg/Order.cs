@@ -54,7 +54,7 @@ namespace Shop.Domain.OrderAgg
         //Count Total Order User
         public int ItemCount => Items.Count;
 
-        //Add In OrderItem
+        //AddAsync In OrderItem
         public void AddItem(OrderItem item)
         {
             Guard();

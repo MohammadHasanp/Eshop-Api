@@ -33,7 +33,7 @@ namespace Shop.Application.Products.Create
                 request.SubCategoryId, request.SecondarySubCategory, request.Slug, request.SeoData,
                 _productService);
 
-            await _repository.Add(product);
+            await _repository.AddAsync(product);
 
             var listSpecifications = new List<ProductSpecification>();
 

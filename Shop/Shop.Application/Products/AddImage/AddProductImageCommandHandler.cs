@@ -23,7 +23,7 @@ namespace Shop.Application.Products.AddImage
             if (product == null)
                 return OperationResult.NotFound();
 
-            var imageName = await _fileService.SaveFileAndGenerateName(request.ImageFile, Directories.ProductGaleryImages);
+            var imageName = await _fileService.SaveFileAndGenerateName(request.ImageFile, Directories.ProductGalleryImages);
 
             var productImage = new ProductImage(imageName, request.Sequence);
             product.AddImage(productImage);

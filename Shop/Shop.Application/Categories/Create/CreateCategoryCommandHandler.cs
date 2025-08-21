@@ -25,7 +25,7 @@ namespace Shop.Application.Categories.Create
         public async Task<OperationResult> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
             var category = new Category(request.title, request.slug, request.SeoData, _domainService);
-            await _repository.Add(category);
+            await _repository.AddAsync(category);
             await _repository.Save();
             return OperationResult.Success();
         }

@@ -16,7 +16,7 @@ namespace Shop.Application.Comments.Create
         public async Task<OperationResult> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
         {
             var comment = new Comment(request.userId,request.productId,request.Text);
-            await _repository.Add(comment);
+            await _repository.AddAsync(comment);
             await _repository.Save();
             return OperationResult.Success();
         }

@@ -29,7 +29,7 @@ namespace Shop.Application.Products.RemoveImage
                 return OperationResult.NotFound();
 
             var imageName = product.RemoveImage(request.ImageId);
-            _fileService.DeleteFile(Directories.ProductGaleryImages, imageName);
+            _fileService.DeleteFile(Directories.ProductGalleryImages, imageName);
             await _repository.Save();
             return OperationResult.Success();
         }

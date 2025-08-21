@@ -14,12 +14,20 @@ namespace Shop.Domain.SellerAgg
         //Count Inventory
         public int Count { get;private set; }
         //Set SellerInventory
-        public SellerInventory(long productId, int price, int count)
+        public int? DiscountPercentage { get;private set; }
+        public SellerInventory(long productId, int price, int count, int? discountPercentage)
         {
-            Guard(price,count);
+            Guard(price, count);
             ProductId = productId;
             Price = price;
             Count = count;
+            DiscountPercentage = discountPercentage;
+        }
+        public void Edit(int price, int count, int? discountPercentage)
+        {
+            Price = price;
+            Count = count;
+            DiscountPercentage = discountPercentage;
         }
         //Validation SellerInventory
         public void Guard(int price,int count)

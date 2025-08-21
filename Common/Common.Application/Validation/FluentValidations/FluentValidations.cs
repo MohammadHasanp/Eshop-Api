@@ -21,14 +21,6 @@ namespace Common.Application.Validation.FluentValidations
                 }
             });
         }
-        public static IRuleBuilderOptionsConditions<T, string> ValidNationalId<T>(this IRuleBuilder<T, string> ruleBuilder, string errorMessage = "کدملی نامعتبر است")
-        {
-            return ruleBuilder.Custom((nationalCode, context) =>
-            {
-                if (IranianNationalIdChecker.IsValid(nationalCode) == false)
-                    context.AddFailure(errorMessage);
-            });
-        }
         public static IRuleBuilderOptionsConditions<T, string> ValidPhoneNumber<T>(this IRuleBuilder<T, string> ruleBuilder, string errorMessage = ValidationMessages.InvalidPhoneNumber)
         {
             return ruleBuilder.Custom((phoneNumber, context) =>

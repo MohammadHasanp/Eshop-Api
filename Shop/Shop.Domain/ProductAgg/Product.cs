@@ -66,7 +66,7 @@ namespace Shop.Domain.ProductAgg
             Slug = slug.ToSlug();
             SeoData = seoData;
         }
-        //Add Image
+        //AddAsync Image
         public void AddImage(ProductImage image)
         {
             image.ProductId = Id;
