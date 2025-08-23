@@ -1,5 +1,6 @@
 ﻿using Common.Domain;
 using Common.Domain.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using Shop.Domain.UserAgg.Enums;
 using Shop.Domain.UserAgg.Services;
@@ -20,6 +21,7 @@ namespace Shop.Domain.UserAgg
         public string UserName { get; private set; }
         //FullName User
         public string FullName { get; private set; }
+        public string AvatarName { get; private set; }
         //Password User
         public string Password { get; set; }
         //Email User
@@ -36,7 +38,8 @@ namespace Shop.Domain.UserAgg
         public List<UserAddress> Addresses { get; private set; }
 
         //Set User
-        public User(string userName, string fullName, string password, string email, string phoneNumber, Gender gender, IDomainUserService domainUserService)
+        public User(string userName, string fullName, string password, string email, string phoneNumber
+            , Gender gender, IUserDomainService domainUserService)
         {
             Guard(phoneNumber, email, domainUserService);
             UserName = userName;
@@ -48,9 +51,11 @@ namespace Shop.Domain.UserAgg
             Roles = new List<UserRole>();
             Wallets = new List<Wallet>();
             Addresses = new List<UserAddress>();
+            AvatarName = "avatar.png";
         }
         //Edit User
-        public void Edit(string userName, string fullName, string email, string phoneNumber, Gender gender, IDomainUserService domainUserService)
+        public void Edit(string userName, string fullName, string email, string phoneNumber, Gender gender
+            , IUserDomainService domainUserService)
         {
             Guard(phoneNumber, email, domainUserService);
             UserName = userName;
@@ -59,27 +64,36 @@ namespace Shop.Domain.UserAgg
             PhoneNumber = phoneNumber;
             Gender = gender;
         }
-        //Get User
-        public static User RegisterUser(string password,string email, string phoneNumber, IDomainUserService domainUserService)
+        public void SetAvatar(string avatarName)
         {
-            return new User("","",password,email,phoneNumber,Gender.None,domainUserService);
+            if (string.IsNullOrWhiteSpace(avatarName))
+                AvatarName = "avatar.png";
+
+            AvatarName = avatarName;
+        }
+        //Get User
+        public static User RegisterUser(string password, string phoneNumber
+            , IUserDomainService domainUserService)
+        {
+            return new User("", "", password, null, phoneNumber, Gender.None, domainUserService);
         }
         //AddAsync Address user
-        public void AddAddress( UserAddress Address)
+        public void AddAddress(UserAddress Address)
         {
             Address.UserId = Id;
             Addresses.Add(Address);
         }
         //Edit Address User
-        public void EditAddress(UserAddress address)
+        public void EditAddress(UserAddress address,long addressId)
         {
             var oldAddress = Addresses.FirstOrDefault(a => a.UserId == address.Id);
             if (oldAddress == null)
             {
                 throw new NullOrEmptyDomainDataException("Address Not Found");
             }
-            Addresses.Remove(oldAddress);
-            Addresses.Add(address);
+            oldAddress.Edit(address.Shire,address.City,address.PostalCode,address.PostalAddress,address.Phone
+                ,address.Name,address.Family,
+                address.NationalCode);
         }
         //Delete Address User
         public void DeleteAddress(long addressId)
@@ -100,12 +114,12 @@ namespace Shop.Domain.UserAgg
         //Set Role User
         public void SetRoles(List<UserRole> roles)
         {
-            roles.ForEach(r=>r.UserId = Id);
+            roles.ForEach(r => r.UserId = Id);
             Roles.Clear();
-             Roles.AddRange(roles);
+            Roles.AddRange(roles);
         }
         //Validation User
-        public void Guard(string phoneNumber, string email, IDomainUserService domainUserService)
+        public void Guard(string phoneNumber, string email, IUserDomainService domainUserService)
         {
             NullOrEmptyDomainDataException.CheckString((phoneNumber, nameof(phoneNumber)), (email, nameof(email)));
             if (phoneNumber.Length != 11)

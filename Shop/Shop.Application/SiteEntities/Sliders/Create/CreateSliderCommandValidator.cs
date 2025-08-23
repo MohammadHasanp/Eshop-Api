@@ -10,8 +10,8 @@ namespace Shop.Application.SiteEntities.Sliders.Create
         public CreateSliderCommandValidator()
         {
             RuleFor(b => b.ImageFile)
-                           .NotNull().WithMessage("لطفا بخش تصویر را کامل کنید")
-                           .JustValidFile();
+                .NotNull().WithMessage("لطفا بخش تصویر را کامل کنید")
+                .JustValidFile();
 
             RuleFor(b => b.Link)
                 .NotNull()

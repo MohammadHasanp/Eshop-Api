@@ -1,0 +1,22 @@
+﻿using Common.Application;
+using Common.Domain.ValueObjects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Shop.Application.Users.Register
+{
+    public class RegisterUserCommand : IBaseCommand
+    {
+        public PhoneNumber Phone { get; private set; }
+        public string Password { get; private set; }
+
+        public RegisterUserCommand(PhoneNumber phone, string password)
+        {
+            Phone = phone;
+            Password = password;
+        }
+    }
+}

@@ -32,15 +32,16 @@ namespace Shop.Domain.UserAgg
             IsFinally = true;
         }
         //Set Wallet
-        public Wallet(long userId, int price, string decription, bool isFinally, DateTime? finallyDate, WalletType type)
+        public Wallet(long userId, int price, string decription, bool isFinally, WalletType type)
         {
             if (price > 500)
                 throw new InvalidDomainDataException();
             Price = price;
             Description = decription;
             IsFinally = isFinally;
-            FinallyDate = finallyDate;
             Type = type;
+            if(IsFinally == true)
+                FinallyDate = DateTime.Now;
         }
     }
 }

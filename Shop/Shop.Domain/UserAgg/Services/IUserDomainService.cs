@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Domain.UserAgg.Services
 {
-    public interface IDomainUserService
+    public interface IUserDomainService
     {
         //Existence of email
         bool IsEmailExist(string email);

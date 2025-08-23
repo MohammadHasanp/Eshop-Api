@@ -55,7 +55,7 @@ namespace Shop.Application.Products.Edit
             RemoveOldImage(request.ImageFile,oldImageName);
             return OperationResult.Success();
         }
-        private void RemoveOldImage(IFormFile file,string oldImageName)
+        private void RemoveOldImage(IFormFile? file,string oldImageName)
         {
             if(file != null)
             {
