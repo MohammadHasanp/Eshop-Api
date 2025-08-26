@@ -6,9 +6,9 @@ namespace Shop.Application.Comments.Create
 {
     public class CreateCommentCommandHandler : IBaseCommandHandler<CreateCommentCommand>
     {
-        private readonly ICammentRepository _repository;
+        private readonly ICommentRepository _repository;
 
-        public CreateCommentCommandHandler(ICammentRepository repository)
+        public CreateCommentCommandHandler(ICommentRepository repository)
         {
             _repository = repository;
         }

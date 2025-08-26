@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Domain.CommentAgg.Repository
 {
-    public interface ICammentRepository:IBaseRepository<Comment>
+    public interface ICommentRepository:IBaseRepository<Comment>
     {
     }
 }

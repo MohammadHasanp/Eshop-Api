@@ -30,8 +30,8 @@ namespace Shop.Domain.OrderAgg
         public OrderDiscount? Discount { get; private set; }
         // Last time the order status changed
         public DateTime LastUpdate { get; private set; }
-        //ShippingMethode Order
-        public ShippingMethode? ShippingMethode { get; set; }
+        //OrderShippingMethod Order
+        public OrderShippingMethod? ShippingMethod { get; set; }
         //Relation With OrderItem
         public List<OrderItem> Items { get; private set; }
         //Relation with OrderAddress
@@ -43,8 +43,8 @@ namespace Shop.Domain.OrderAgg
             get
             {
                 var TotalPrice = Items.Sum(o => o.TotalPrice);
-                if (ShippingMethode != null)
-                    TotalPrice += ShippingMethode.ShippingCost;
+                if (ShippingMethod != null)
+                    TotalPrice += ShippingMethod.ShippingCost;
                 if (Discount != null)
                     TotalPrice -= Discount.DiscountAmount;
 

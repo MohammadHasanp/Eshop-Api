@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Common.Application
 {
-    public class PaginateBase
+    public class BasePaginate
     {
         public int EntityCount { get; set; }
         public int CurrentPage { get; set; }

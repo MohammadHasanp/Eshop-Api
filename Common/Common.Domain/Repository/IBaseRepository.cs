@@ -9,8 +9,8 @@ namespace Common.Domain.Repository
 {
     public interface IBaseRepository<TEntity> where TEntity:BaseEntity
     {
-        Task<TEntity> GetAsync(long id);
-        Task<TEntity> GetTracking(long id);
+        Task<TEntity?> GetAsync(long id);
+        Task<TEntity?> GetTracking(long id);
         Task AddAsync(TEntity entity);
         void Add(TEntity entity);
         Task AddRange(ICollection<TEntity> entities);
@@ -18,6 +18,6 @@ namespace Common.Domain.Repository
         Task<int> Save();
         Task<bool> ExistAsync(Expression<Func<TEntity,bool>> expression);
         bool Exists(Expression<Func<TEntity,bool>>expression);
-        TEntity Get(long id);
+        TEntity? Get(long id);
     }
 }

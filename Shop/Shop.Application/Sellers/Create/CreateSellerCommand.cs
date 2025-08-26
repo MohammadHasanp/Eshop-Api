@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace Shop.Application.Sellers.Create
 {
-    public record CreateSellerCommand(long UserId, string ShopName, string NationalCode) : IBaseCommand
+    public record CreateSellerCommand(long UserId, string ShopName, string NationalCode) : IBaseCommand;
 }

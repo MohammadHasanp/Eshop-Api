@@ -5,9 +5,9 @@ namespace Shop.Application.Comments.Edit
 {
     public class EditCommentCommandHandler : IBaseCommandHandler<EditCommentCommand>
     {
-        private readonly ICammentRepository _repository;
+        private readonly ICommentRepository _repository;
 
-        public EditCommentCommandHandler(ICammentRepository repository)
+        public EditCommentCommandHandler(ICommentRepository repository)
         {
             _repository = repository;
         }

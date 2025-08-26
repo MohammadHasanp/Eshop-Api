@@ -17,7 +17,7 @@ namespace Shop.Domain.CategoryAgg
         public string Title { get; private set; }
         public string Slug { get;private set; }
         public SeoData SeoData{ get;private set; }
-        public long? PrantId { get;private set; }
+        public long? ParentId { get;private set; }
         public List<Category> Childs { get; set; }
 
         private Category() 
@@ -47,7 +47,7 @@ namespace Shop.Domain.CategoryAgg
         {
             Childs.Add(new Category(title, slug, seoData, categoryDomain)
             {
-                PrantId = Id
+                ParentId = Id
             });
         }
         public void Guard(string title,string slug,ICategoryDomainServices categoryDomain)
