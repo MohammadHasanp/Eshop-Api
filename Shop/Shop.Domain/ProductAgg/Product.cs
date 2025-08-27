@@ -38,7 +38,7 @@ namespace Shop.Domain.ProductAgg
         public List<ProductSpecification> Specifications { get; private set; }
         //Set Product
         public Product(string title,string imageName, string description, long categoryId, long subCategoryId
-            , long secondarySubCategory, string slug, SeoData seoData,IProductService productService)
+            , long secondarySubCategory, string slug, SeoData seoData,IProductDomainService productService)
         {
             NullOrEmptyDomainDataException.CheckString((imageName,nameof(imageName)));
             Guard(title, description, slug, productService);
@@ -50,12 +50,12 @@ namespace Shop.Domain.ProductAgg
             SecondarySubCategory = secondarySubCategory;
             Slug = slug.ToSlug();
             SeoData = seoData;
-            //Specifications = new List<ProductSpecification>();
-            //Images = new List<ProductImage>();
+            Specifications = new List<ProductSpecification>();
+            Images = new List<ProductImage>();
         }
         //Edit Product
         public void Edit(string title, string description, long categoryId, long subCategoryId
-            , long secondarySubCategory, string slug, SeoData seoData,IProductService productService)
+            , long secondarySubCategory, string slug, SeoData seoData,IProductDomainService productService)
         {
             Guard(title,description,slug,productService);
             Title = title;
@@ -94,7 +94,7 @@ namespace Shop.Domain.ProductAgg
             ImageName = imageName;
         }
         //Validation
-        public void Guard(string title, string description, string slug, IProductService service)
+        public void Guard(string title, string description, string slug, IProductDomainService service)
         {
             NullOrEmptyDomainDataException.CheckString((title, nameof(title))
                 , (description, nameof(description)), (slug.ToSlug(), nameof(slug)));

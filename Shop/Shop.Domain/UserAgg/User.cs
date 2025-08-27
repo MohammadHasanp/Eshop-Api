@@ -17,6 +17,7 @@ namespace Shop.Domain.UserAgg
 {
     public class User : AggregateRoot
     {
+        private User() { }
         //UserNAme User
         public string UserName { get; private set; }
         //FullName User

@@ -1,17 +1,20 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
+using shop.Config;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var service = builder.Services;
 // Add services to the container.
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+ProjectBootstrapper.RegisterShopDependency(service,connectionString);
+service.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
-builder.Services.AddControllers();
+service.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+service.AddEndpointsApiExplorer();
+service.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -19,7 +22,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shop API V1");
+    });
 }
 
 app.UseHttpsRedirection();

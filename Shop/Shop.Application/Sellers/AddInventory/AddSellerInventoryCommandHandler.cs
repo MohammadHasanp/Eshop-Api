@@ -21,7 +21,7 @@ namespace Shop.Application.Sellers.AddInventory
                 return OperationResult.NotFound();
 
             var sellerInventory = new SellerInventory(request.ProductId,request.Price,request.Count
-                ,request.PercentageDiscount);
+                ,request.DiscountPercentage);
             seller.AddInventory(sellerInventory);
             await _repository.Save();
             return OperationResult.Success();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Domain.ProductAgg.DomainServices
 {
-    public interface IProductService
+    public interface IProductDomainService
     {
         //For Tto Exist Slug
         bool IsExistSlug(string slug);

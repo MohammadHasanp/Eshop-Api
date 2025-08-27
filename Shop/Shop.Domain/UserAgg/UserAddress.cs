@@ -10,6 +10,7 @@ namespace Shop.Domain.UserAgg
 {
     public class UserAddress : BaseEntity
     {
+        public UserAddress() { }
         //Relation With User
         public long UserId { get; internal set; }
         //

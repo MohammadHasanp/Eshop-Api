@@ -3,12 +3,6 @@ using Common.Domain.Exceptions;
 using Common.Domain.Utilitis;
 using Common.Domain.ValueObjects;
 using Shop.Domain.CategoryAgg.Services;
-using Shop.Domain.UserAgg.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shop.Domain.CategoryAgg
 {
@@ -22,23 +16,23 @@ namespace Shop.Domain.CategoryAgg
 
         private Category() 
         {
-            Childs = new List<Category>();
-
         }
 
         public Category(string title, string slug, SeoData seoData,ICategoryDomainServices categoryDomain)
         {
-            slug = slug?.ToSlug();
+            slug = slug.ToSlug();
             Guard(title, slug, categoryDomain);
             Title = title;
             Slug = slug;
             SeoData = seoData;
             Childs = new List<Category>();
         }
+        //TODO
+        //Check if the slug is null.
         public void Edit(string title,string slug,SeoData seoData,ICategoryDomainServices categoryDomain)
         {
-            slug = slug?.ToSlug();
-            Guard(title,slug,categoryDomain);
+            slug = slug.ToSlug();
+            Guard(title, slug, categoryDomain);
             Title = title;
             Slug = slug;
             SeoData = seoData;

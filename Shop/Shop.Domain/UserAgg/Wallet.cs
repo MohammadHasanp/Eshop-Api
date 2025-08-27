@@ -6,6 +6,7 @@ namespace Shop.Domain.UserAgg
 {
     public class Wallet:BaseEntity
     {
+        private Wallet() { }
         //Relation With User
         public long UserId{ get;internal set; }
         //Amount Wallet User

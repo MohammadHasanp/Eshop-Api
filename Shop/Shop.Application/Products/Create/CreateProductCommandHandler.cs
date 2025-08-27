@@ -16,10 +16,10 @@ namespace Shop.Application.Products.Create
     public class CreateProductCommandHandler : IBaseCommandHandler<CreateProductCommand>
     {
         private readonly IProductRepository _repository;
-        private readonly IProductService _productService;
+        private readonly IProductDomainService _productService;
         private readonly IFileService _fileService;
 
-        public CreateProductCommandHandler(IProductRepository repository, IProductService productService, IFileService fileService)
+        public CreateProductCommandHandler(IProductRepository repository, IProductDomainService productService, IFileService fileService)
         {
             _repository = repository;
             _productService = productService;

@@ -16,10 +16,10 @@ namespace Shop.Application.Products.Edit
     public class EditProductCommandHandler : IBaseCommandHandler<EditProductCommand>
     {
         private readonly IProductRepository _repository;
-        private readonly IProductService _productService;
+        private readonly IProductDomainService _productService;
         private readonly IFileService _fileService;
 
-        public EditProductCommandHandler(IProductRepository repository, IProductService productService, IFileService fileService)
+        public EditProductCommandHandler(IProductRepository repository, IProductDomainService productService, IFileService fileService)
         {
             _repository = repository;
             _productService = productService;

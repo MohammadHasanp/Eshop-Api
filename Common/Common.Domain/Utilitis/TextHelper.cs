@@ -12,6 +12,9 @@ namespace Common.Domain.Utilitis
         //Slug Validation
         public static string ToSlug(this string Text)
         {
+            if(Text == null)
+                return null;
+
             return Text.Trim().ToLower()
                 .Replace(" ", "-")
                 .Replace("+", "")
