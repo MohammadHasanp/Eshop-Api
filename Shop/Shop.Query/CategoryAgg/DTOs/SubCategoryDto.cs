@@ -3,7 +3,7 @@ using Common.Query;
 
 namespace Shop.Query.CategoryAgg.DTOs
 {
-    public class ChildCategoryDto:BaseDto
+    public class SubCategoryDto:BaseDto
     {
         public string Title { get; set; }
         public string Slug { get; set; }

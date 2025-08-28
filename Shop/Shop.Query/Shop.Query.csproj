@@ -8,12 +8,6 @@
 
   <ItemGroup>
     <Folder Include="CommentAgg\GetById\" />
-    <Folder Include="Product\" />
-    <Folder Include="Role\" />
-    <Folder Include="Banner\" />
-    <Folder Include="Slider\" />
-    <Folder Include="User\" />
-    <Folder Include="Seller\" />
   </ItemGroup>
 
   <ItemGroup>

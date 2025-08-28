@@ -26,19 +26,19 @@ namespace Shop.Domain.ProductAgg
         public long CategoryId { get; private set; }
         //SubCateogory
         public long SubCategoryId { get; private set; }
-        //SecondarySubCategory Product
-        public long SecondarySubCategory { get; private set; }
+        //SecondarySubCategoryId Product
+        public long? SecondarySubCategoryId { get; private set; }
         //Slug Product
         public string Slug { get; private set; }
         //For Seo
         public SeoData SeoData { get; private set; }
         //Relation With ProductImage
-        public List<ProductImage> Images { get; set; }
+        public List<ProductImage> Images { get;private set; }
         //Relation with Product Specification
         public List<ProductSpecification> Specifications { get; private set; }
         //Set Product
         public Product(string title,string imageName, string description, long categoryId, long subCategoryId
-            , long secondarySubCategory, string slug, SeoData seoData,IProductDomainService productService)
+            , long? secondarySubCategory, string slug, SeoData seoData,IProductDomainService productService)
         {
             NullOrEmptyDomainDataException.CheckString((imageName,nameof(imageName)));
             Guard(title, description, slug, productService);
@@ -47,7 +47,7 @@ namespace Shop.Domain.ProductAgg
             Description = description;
             CategoryId = categoryId;
             SubCategoryId = subCategoryId;
-            SecondarySubCategory = secondarySubCategory;
+            SecondarySubCategoryId = secondarySubCategory;
             Slug = slug.ToSlug();
             SeoData = seoData;
             Specifications = new List<ProductSpecification>();
@@ -62,7 +62,7 @@ namespace Shop.Domain.ProductAgg
             Description = description;
             CategoryId = categoryId;
             SubCategoryId = subCategoryId;
-            SecondarySubCategory = secondarySubCategory;
+            SecondarySubCategoryId = secondarySubCategory;
             Slug = slug.ToSlug();
             SeoData = seoData;
         }

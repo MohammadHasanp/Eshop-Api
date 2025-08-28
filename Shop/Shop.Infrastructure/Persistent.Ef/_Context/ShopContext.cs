@@ -33,7 +33,6 @@ namespace Shop.Infrastructure.Persistent.Ef._Context
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<User> Users { get; set; }
 
-        public DbSet<SellerInventory> SellerInventories { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);

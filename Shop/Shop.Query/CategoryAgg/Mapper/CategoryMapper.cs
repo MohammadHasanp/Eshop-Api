@@ -39,12 +39,12 @@ namespace Shop.Query.CategoryAgg.Mapper
             return model;
         }
 
-        public static List<ChildCategoryDto> MapChildren(this List<Category> children)
+        public static List<SubCategoryDto> MapChildren(this List<Category> children)
         {
-            var model = new List<ChildCategoryDto>();
+            var model = new List<SubCategoryDto>();
             children.ForEach(c =>
             {
-                model.Add(new ChildCategoryDto
+                model.Add(new SubCategoryDto
                 {
 
                     Id = c.Id,
