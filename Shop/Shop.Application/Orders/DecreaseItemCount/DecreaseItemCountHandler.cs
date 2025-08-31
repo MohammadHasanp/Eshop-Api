@@ -3,7 +3,7 @@ using Shop.Domain.OrderAgg.Repository;
 
 namespace Shop.Application.Orders.DecreaseItemCount
 {
-    public class DecreaseItemCountHandler : IBaseCommandHandler<DecreaseItemCount>
+    public class DecreaseItemCountHandler : IBaseCommandHandler<DecreaseItemCountCommand>
     {
         private readonly IOrderRepository _repository;
 
@@ -12,7 +12,7 @@ namespace Shop.Application.Orders.DecreaseItemCount
             _repository = repository;
         }
 
-        public async Task<OperationResult> Handle(DecreaseItemCount request, CancellationToken cancellationToken)
+        public async Task<OperationResult> Handle(DecreaseItemCountCommand request, CancellationToken cancellationToken)
         {
             var order = await _repository.GetCurrentUserOrder(request.UserId);
 

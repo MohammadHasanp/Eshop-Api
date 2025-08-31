@@ -4,7 +4,7 @@ using Shop.Domain.UserAgg.Services;
 
 namespace Shop.Application.Users.DeleteAddress
 {
-    public class DeleteUserCommandHandler : IBaseCommandHandler<DeleteUserCommand>
+    public class DeleteUserCommandHandler : IBaseCommandHandler<DeleteUserAddressCommand>
     {
         private readonly IUserDomainService _domainService;
         private readonly IUserRepository _repository;
@@ -15,7 +15,7 @@ namespace Shop.Application.Users.DeleteAddress
             _repository = repository;
         }
 
-        public async Task<OperationResult> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+        public async Task<OperationResult> Handle(DeleteUserAddressCommand request, CancellationToken cancellationToken)
         {
             var user = await _repository.GetTracking(request.AddressId);
 

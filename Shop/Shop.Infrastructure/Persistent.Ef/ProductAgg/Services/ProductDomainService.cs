@@ -1,17 +1,18 @@
 ﻿using Shop.Domain.ProductAgg.DomainServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Shop.Domain.ProductAgg.Repository;
 
 namespace Shop.Infrastructure.Persistent.Ef.ProductAgg.Services
 {
     public class ProductDomainService : IProductDomainService
     {
+        private readonly IProductRepository _repository;
+        public ProductDomainService(IProductRepository repository)
+        {
+            _repository = repository;
+        }
         public bool IsExistSlug(string slug)
         {
-            throw new NotImplementedException();
+            return _repository.Exists(c=>c.Slug == slug);
         }
     }
 }
