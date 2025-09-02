@@ -2,17 +2,12 @@
 using MediatR;
 using Shop.Application.Categories.AddChild;
 using Shop.Application.Categories.Create;
+using Shop.Application.Categories.Delete;
 using Shop.Application.Categories.Edit;
 using Shop.Query.CategoryAgg.DTOs;
 using Shop.Query.CategoryAgg.GetById;
 using Shop.Query.CategoryAgg.GetByParentId;
 using Shop.Query.CategoryAgg.GetList;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shop.Presentation.Facade.CategoryAgg
 {
@@ -23,14 +18,19 @@ namespace Shop.Presentation.Facade.CategoryAgg
         {
             _mediator = mediator;
         }
-        public async Task<OperationResult> Addchilld(AddChildCategoryCommand command)
+        public async Task<OperationResult<long>> Addchilld(AddChildCategoryCommand command)
         {
             return await _mediator.Send(command);
         }
 
-        public async Task<OperationResult> Create(CreateCategoryCommand command)
+        public async Task<OperationResult<long>> Create(CreateCategoryCommand command)
         {
             return await _mediator.Send(command);
+        }
+
+        public async Task<OperationResult> Delete(long categoryId)
+        {
+            return await _mediator.Send(new DeleteCategoryCommnad(categoryId));
         }
 
         public async Task<OperationResult> Edit(EditCategoryCommand command)

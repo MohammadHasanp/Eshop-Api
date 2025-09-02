@@ -1,6 +1,7 @@
 ﻿using Common.Application;
 using Microsoft.EntityFrameworkCore.Storage.Json;
 using Shop.Application.Orders.AddItem;
+using Shop.Application.Orders.ChackoutOrderItem;
 using Shop.Application.Orders.DecreaseItemCount;
 using Shop.Application.Orders.DeleteItem;
 using Shop.Application.Orders.IncreaseItemCount;
@@ -20,6 +21,7 @@ namespace Shop.Presentation.Facade.OrderAgg
         Task<OperationResult> DecreaseItemCount(DecreaseItemCountCommand command);
         Task<OperationResult> IncreaseItemCount(IncreaseOrderItemCountCommand command);
         Task<OperationResult> Delete(DeleteOrderItemCommand command);
+        Task<OperationResult> Ordercheckout(CheckoutOrderItemCommand command);
 
         Task<OrderDto?> GetOrderById(long Id);
         Task<OrderFilterResult> GetOrderByFilter(OrderFilterParams @params);

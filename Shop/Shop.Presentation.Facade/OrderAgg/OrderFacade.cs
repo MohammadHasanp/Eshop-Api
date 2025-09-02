@@ -1,6 +1,7 @@
 ﻿using Common.Application;
 using MediatR;
 using Shop.Application.Orders.AddItem;
+using Shop.Application.Orders.ChackoutOrderItem;
 using Shop.Application.Orders.DecreaseItemCount;
 using Shop.Application.Orders.DeleteItem;
 using Shop.Application.Orders.IncreaseItemCount;
@@ -43,6 +44,11 @@ namespace Shop.Presentation.Facade.OrderAgg
         }
 
         public async Task<OperationResult> IncreaseItemCount(IncreaseOrderItemCountCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        public async Task<OperationResult> Ordercheckout(CheckoutOrderItemCommand command)
         {
             return await _mediator.Send(command);
         }

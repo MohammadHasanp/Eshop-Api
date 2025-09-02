@@ -15,7 +15,10 @@ namespace Shop.Query.CategoryAgg.GetList
         }
         public async Task<List<CategoryDto>> Handle(GetCategoryListQuery request, CancellationToken cancellationToken)
         {
-            var model = await _context.Categories.OrderByDescending(c=>c.Id).ToListAsync(cancellationToken);
+            var model = await _context.Categories
+                .Where(c=>c.ParentId == null)
+                .Include(c=>c.Childs)
+                .ThenInclude(c=>c.Childs).OrderByDescending(c=>c.Id).ToListAsync(cancellationToken);
             return model.Map();
         }
     }

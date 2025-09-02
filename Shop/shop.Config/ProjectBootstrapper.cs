@@ -17,6 +17,7 @@ using Shop.Infrastructure.Persistent.Ef.SellerAgg.Services;
 using Shop.Infrastructure.Persistent.Ef.UserAgg.Services;
 using Common.Application.FileUtil.Interfaces;
 using Common.Application.FileUtil.Services;
+using Shop.Presentation.Facade;
 
 namespace shop.Config
 {
@@ -40,6 +41,7 @@ namespace shop.Config
             services.AddTransient<ISellerDomainService,SellerDomainService>();
             services.AddTransient<IUserDomainService,UserDomainService>();
             services.AddTransient<IFileService,FileService>();
+            FacadeBootstrapper.InitFacadeDependency(services);
 
         }
     }

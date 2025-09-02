@@ -9,5 +9,6 @@ namespace Shop.Domain.CategoryAgg.Repository
 {
     public interface ICategoryRepository:IBaseRepository<Category>
     {
+        public Task<bool> DeleteCategory(long CategoryId);
     }
 }

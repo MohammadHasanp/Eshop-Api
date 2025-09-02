@@ -3,6 +3,7 @@ using Common.Domain.Exceptions;
 using Common.Domain.Utilitis;
 using Common.Domain.ValueObjects;
 using Shop.Domain.CategoryAgg.Services;
+using static Common.Domain.Exceptions.BaseDomainExceotion;
 
 namespace Shop.Domain.CategoryAgg
 {
@@ -14,8 +15,9 @@ namespace Shop.Domain.CategoryAgg
         public long? ParentId { get;private set; }
         public List<Category> Childs { get; set; }
 
-        private Category() 
+        private Category()
         {
+            Childs = new List<Category>();
         }
 
         public Category(string title, string slug, SeoData seoData,ICategoryDomainServices categoryDomain)
@@ -49,7 +51,7 @@ namespace Shop.Domain.CategoryAgg
             NullOrEmptyDomainDataException.CheckString((title,nameof(title)),(slug,nameof(slug)));
             if (Slug != slug)
                 if (categoryDomain.IsExistSlug(slug))
-                    throw new SlugIsDuplicateException("Slug InValid");
+                    throw new SlugIsDuplicateException("Slug InValid");   
         }
     }
 }

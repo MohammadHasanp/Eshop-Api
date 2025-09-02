@@ -10,11 +10,9 @@ using System.Threading.Tasks;
 
 namespace Shop.Presentation.Facade.SellerAgg.Inventory
 {
-    internal interface ISellerInventoryFacade
+    public interface ISellerInventoryFacade
     {
         Task<OperationResult> Add(AddSellerInventoryCommand command);
         Task<OperationResult> Edit(EditSellerInaventoryCommand command);
-
-
     }
 }

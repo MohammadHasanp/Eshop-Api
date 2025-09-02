@@ -4,7 +4,7 @@ using Shop.Infrastructure.Persistent.Ef._Context;
 using Shop.Query.UserAgg.DTOs;
 using Shop.Query.UserAgg.Mapper;
 
-namespace Shop.Query.UserAgg.GetByPhoneNumber
+namespace Shop.Query.UserAgg.GetByEmail
 {
     public class GetUserByEmailHandler : IQueryHandler<GetUserByEmailqQery, UserDto>
     {

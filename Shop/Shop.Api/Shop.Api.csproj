@@ -19,11 +19,14 @@
     <PackageReference Include="Microsoft.Identity.Web" Version="3.13.2" />
     <PackageReference Include="Microsoft.Identity.Web.DownstreamApi" Version="3.13.2" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\Common.AspNetCore\Common.AspNetCore.csproj" />
     <ProjectReference Include="..\shop.Config\shop.Config.csproj" />
+    <ProjectReference Include="..\Shop.Presentation.Facade\Shop.Presentation.Facade.csproj" />
   </ItemGroup>
 
 </Project>

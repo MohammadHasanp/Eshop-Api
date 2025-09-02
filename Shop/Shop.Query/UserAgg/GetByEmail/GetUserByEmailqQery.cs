@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop.Query.UserAgg.GetByPhoneNumber
+namespace Shop.Query.UserAgg.GetByEmail
 {
     public record GetUserByEmailqQery(string Email) : IQuery<UserDto>;
 }
