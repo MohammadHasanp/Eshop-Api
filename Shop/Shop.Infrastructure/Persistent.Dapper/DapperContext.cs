@@ -1,10 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shop.Infrastructure.Persistent.Dapper
 {
@@ -21,7 +16,9 @@ namespace Shop.Infrastructure.Persistent.Dapper
 
         public string Inventories = "[seller].Inventories";
         public string OrderItems = "[order].Items";
+        public string UserAddress = "[user].UserAddress";
         public string Sellers = "[seller].Sellers";
         public string Products = "[product].Products";
+        public string UserTokens = "[user].Tokens";
     }
 }

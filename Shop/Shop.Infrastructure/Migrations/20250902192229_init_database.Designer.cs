@@ -12,8 +12,8 @@ using Shop.Infrastructure.Persistent.Ef._Context;
 namespace Shop.Infrastructure.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20250827131803_Init_DataBase")]
-    partial class Init_DataBase
+    [Migration("20250902192229_init_database")]
+    partial class init_database
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -146,7 +146,7 @@ namespace Shop.Infrastructure.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<long>("SecondarySubCategoryId")
+                    b.Property<long?>("SecondarySubCategoryId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Slug")
@@ -319,6 +319,9 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<int>("Gender")
                         .HasMaxLength(50)
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -746,9 +749,6 @@ namespace Shop.Infrastructure.Migrations
                 {
                     b.OwnsMany("Shop.Domain.UserAgg.UserAddress", "Addresses", b1 =>
                         {
-                            b1.Property<long>("UserId")
-                                .HasColumnType("bigint");
-
                             b1.Property<long>("Id")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("bigint");
@@ -796,7 +796,10 @@ namespace Shop.Infrastructure.Migrations
                                 .HasMaxLength(50)
                                 .HasColumnType("nvarchar(50)");
 
-                            b1.HasKey("UserId", "Id");
+                            b1.Property<long>("UserId")
+                                .HasColumnType("bigint");
+
+                            b1.HasKey("Id");
 
                             b1.HasIndex("UserId");
 
@@ -807,9 +810,6 @@ namespace Shop.Infrastructure.Migrations
 
                             b1.OwnsOne("Common.Domain.ValueObjects.PhoneNumber", "Phone", b2 =>
                                 {
-                                    b2.Property<long>("UserAddressUserId")
-                                        .HasColumnType("bigint");
-
                                     b2.Property<long>("UserAddressId")
                                         .HasColumnType("bigint");
 
@@ -819,12 +819,12 @@ namespace Shop.Infrastructure.Migrations
                                         .HasColumnType("nvarchar(11)")
                                         .HasColumnName("PhoneNumber");
 
-                                    b2.HasKey("UserAddressUserId", "UserAddressId");
+                                    b2.HasKey("UserAddressId");
 
                                     b2.ToTable("UserAddress", "user");
 
                                     b2.WithOwner()
-                                        .HasForeignKey("UserAddressUserId", "UserAddressId");
+                                        .HasForeignKey("UserAddressId");
                                 });
 
                             b1.Navigation("Phone")

@@ -1,16 +1,7 @@
 ﻿using Common.Domain;
 using Common.Domain.Exceptions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.Tokens;
 using Shop.Domain.UserAgg.Enums;
 using Shop.Domain.UserAgg.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using static Common.Domain.Exceptions.BaseDomainExceotion;
 
 namespace Shop.Domain.UserAgg
@@ -27,6 +18,8 @@ namespace Shop.Domain.UserAgg
         public string Password { get; set; }
         //Email User
         public string Email { get; private set; }
+        //Active User
+        public bool IsActive { get; set; }
         //Password Phone
         public string PhoneNumber { get; private set; }
         //Gender User
@@ -37,6 +30,7 @@ namespace Shop.Domain.UserAgg
         public List<Wallet> Wallets { get; private set; }
         //Relation With User Address
         public List<UserAddress> Addresses { get; private set; }
+        public List<UserToken> Tokens { get; private set; }
 
         //Set User
         public User(string userName, string fullName, string password, string email, string phoneNumber
@@ -52,7 +46,9 @@ namespace Shop.Domain.UserAgg
             Roles = new List<UserRole>();
             Wallets = new List<Wallet>();
             Addresses = new List<UserAddress>();
+            Tokens = new List<UserToken>();
             AvatarName = "avatar.png";
+            IsActive = true;
         }
         //Edit User
         public void Edit(string userName, string fullName, string email, string phoneNumber, Gender gender
@@ -76,7 +72,7 @@ namespace Shop.Domain.UserAgg
         public static User RegisterUser(string password, string phoneNumber
             , IUserDomainService domainUserService)
         {
-            return new User("", "", password, null, phoneNumber, Gender.None, domainUserService);
+            return new User("", "", password,"ttest@gmail.com", phoneNumber, Gender.None, domainUserService);
         }
         //AddAsync Address user
         public void AddAddress(UserAddress Address)
@@ -85,15 +81,15 @@ namespace Shop.Domain.UserAgg
             Addresses.Add(Address);
         }
         //Edit Address User
-        public void EditAddress(UserAddress address,long addressId)
+        public void EditAddress(UserAddress address, long addressId)
         {
             var oldAddress = Addresses.FirstOrDefault(a => a.UserId == address.Id);
             if (oldAddress == null)
             {
                 throw new NullOrEmptyDomainDataException("Address Not Found");
             }
-            oldAddress.Edit(address.Shire,address.City,address.PostalCode,address.PostalAddress,address.Phone
-                ,address.Name,address.Family,
+            oldAddress.Edit(address.Shire, address.City, address.PostalCode, address.PostalAddress, address.Phone
+                , address.Name, address.Family,
                 address.NationalCode);
         }
         //Delete Address User
@@ -119,24 +115,43 @@ namespace Shop.Domain.UserAgg
             Roles.Clear();
             Roles.AddRange(roles);
         }
+        public void AddToken(string hashJwtToken, string hashRefreshToken, DateTime tokenExpireDate, DateTime refreshTokenExpireDate, string device)
+        {
+            var activeTokenCount = Tokens.Count(c => c.RefreshTokenExpireDate > DateTime.Now);
+            if (activeTokenCount == 3)
+                throw new InvalidDomainDataException("امکان استفاده از 4 دستگاه همزمان وجود ندارد");
+
+            var token = new UserToken(hashJwtToken, hashRefreshToken, tokenExpireDate, refreshTokenExpireDate, device);
+            token.UserId = Id;
+            Tokens.Add(token);
+        }
+        public string RemoveToken(long tokenId)
+        {
+            var token = Tokens.FirstOrDefault(f => f.Id == tokenId);
+            if (token == null)
+                throw new InvalidDomainDataException("شناسه توکن نامعتبر است");
+
+            Tokens.Remove(token);
+            return token.HashJwtToken;
+        }
         //Validation User
         public void Guard(string phoneNumber, string email, IUserDomainService domainUserService)
         {
-            NullOrEmptyDomainDataException.CheckString((phoneNumber, nameof(phoneNumber)), (email, nameof(email)));
+            NullOrEmptyDomainDataException.CheckString((phoneNumber, nameof(phoneNumber)));
             if (phoneNumber.Length != 11)
-            {
-                throw new InvalidDomainDataException("Phone Is Invalid");
-            }
-            if (!email.IsValidEmail())
-            {
-                throw new InvalidDomainDataException("Email Is Invalid");
-            }
+                throw new InvalidDomainDataException("شماره موبایل نامعتبر است");
+
+            if (!string.IsNullOrWhiteSpace(email))
+                if (email.IsValidEmail() == false)
+                    throw new InvalidDomainDataException(" ایمیل  نامعتبر است");
+
             if (phoneNumber != PhoneNumber)
                 if (domainUserService.IsPhoneNumberExist(phoneNumber))
-                    throw new InvalidDomainDataException("Phone Is Duplicate");
+                    throw new InvalidDomainDataException("شماره موبایل تکراری است");
+
             if (email != Email)
                 if (domainUserService.IsEmailExist(email))
-                    throw new InvalidDomainDataException("Email Is Duplicate");
+                    throw new InvalidDomainDataException("ایمیل تکراری است");
         }
     }
 }

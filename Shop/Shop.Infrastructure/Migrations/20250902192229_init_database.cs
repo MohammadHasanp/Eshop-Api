@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Shop.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Init_DataBase : Migration
+    public partial class init_database : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,6 +50,7 @@ namespace Shop.Infrastructure.Migrations
                     Image = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     Gender = table.Column<int>(type: "int", maxLength: 50, nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -157,7 +158,7 @@ namespace Shop.Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     CategoryId = table.Column<long>(type: "bigint", nullable: false),
                     SubCategoryId = table.Column<long>(type: "bigint", nullable: false),
-                    SecondarySubCategory = table.Column<long>(type: "bigint", nullable: false),
+                    SecondarySubCategoryId = table.Column<long>(type: "bigint", nullable: true),
                     Slug = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
                     MetaTitle = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     SeoData_MetaDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -244,7 +245,7 @@ namespace Shop.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserAddress", x => new { x.UserId, x.Id });
+                    table.PrimaryKey("PK_UserAddress", x => x.Id);
                     table.ForeignKey(
                         name: "FK_UserAddress_Addresses_UserId",
                         column: x => x.UserId,

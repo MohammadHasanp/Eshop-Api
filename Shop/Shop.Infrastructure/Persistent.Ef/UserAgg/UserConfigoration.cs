@@ -54,6 +54,23 @@ namespace Shop.Infrastructure.Persistent.Ef.UserAgg
                 builder.ToTable("Roles","user");
                 option.HasIndex(u=>u.UserId);
             });
+            builder.OwnsMany(b => b.Tokens, option =>
+            {
+                option.ToTable("Tokens", "user");
+                option.HasKey(b => b.Id);
+
+                option.Property(b => b.HashJwtToken)
+                    .IsRequired()
+                    .HasMaxLength(250);
+
+                option.Property(b => b.HashRefreshToken)
+                    .IsRequired()
+                    .HasMaxLength(250);
+
+                option.Property(b => b.Device)
+                    .IsRequired()
+                    .HasMaxLength(100);
+            });
             builder.OwnsMany(u => u.Wallets, option =>
             {
                 builder.ToTable("Wallets", "user");
@@ -66,6 +83,7 @@ namespace Shop.Infrastructure.Persistent.Ef.UserAgg
             {
                 builder.ToTable("Addresses", "user");
                 option.HasIndex(u => u.UserId);
+                option.HasKey(a=>a.Id);
 
                 option.Property(u => u.Shire)
                     .IsRequired()

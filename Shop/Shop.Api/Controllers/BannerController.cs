@@ -1,5 +1,5 @@
 ﻿using Common.AspNetCore;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Application.SiteEntities.Banners.Create;
 using Shop.Application.SiteEntities.Banners.Edit;
@@ -8,6 +8,7 @@ using Shop.Query.BannerAgg.DTOs;
 
 namespace Shop.Api.Controllers
 {
+    [Authorize]
     public class BannerController : ApiController
     {
         private readonly IBannerFacade _bannerFacade;

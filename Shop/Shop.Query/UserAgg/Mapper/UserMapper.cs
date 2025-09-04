@@ -22,6 +22,7 @@ namespace Shop.Query.UserAgg.Mapper
                 Email = user.Email,
                 FullName = user.FullName,
                 Gender = user.Gender,
+                IsActive = user.IsActive,
                 Password = user.Password,
                 Id = user.Id,
                 PhoneNumber = user.PhoneNumber,
