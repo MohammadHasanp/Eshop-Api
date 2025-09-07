@@ -17,7 +17,6 @@ namespace Common.AspNetCore.Middlewares
             return builder.UseMiddleware<ApiCustomExceptionHandler>();
         }
     }
-
     public class ApiCustomExceptionHandler
     {
         private readonly RequestDelegate _next;

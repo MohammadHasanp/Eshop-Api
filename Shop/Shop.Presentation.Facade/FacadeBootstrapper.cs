@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Shop.Presentation.Facade.BannerAgg;
 using Shop.Presentation.Facade.CategoryAgg;
 using Shop.Presentation.Facade.CommentAgg;

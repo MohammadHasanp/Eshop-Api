@@ -8,6 +8,7 @@ using Shop.Query.ProductAgg.DTOs;
 using Shop.Query.ProductAgg.GetByFilter;
 using Shop.Query.ProductAgg.GetById;
 using Shop.Query.ProductAgg.GetBySlug;
+using Shop.Query.ProductAgg.GetForShop;
 
 namespace Shop.Presentation.Facade.ProductAgg
 {
@@ -36,6 +37,11 @@ namespace Shop.Presentation.Facade.ProductAgg
         public async Task<OperationResult> Edit(EditProductCommand command)
         {
             return await _mediator.Send(command);
+        }
+
+        public async Task<ProductShopResult> GetForShop(ProductShopFilterParams @params)
+        {
+            return await _mediator.Send(new GetProductsForShopQuery(@params));
         }
 
         public async Task<ProductFilterResult> GetProductByFilter(ProductFilterParams @params)

@@ -21,6 +21,7 @@ namespace Shop.Presentation.Facade.ProductAgg
         Task<OperationResult> AddImage(AddProductImageCommand command);
 
 
+        Task<ProductShopResult> GetForShop(ProductShopFilterParams @params);
         Task<ProductDto> GetProductById(long Id);
         Task<ProductDto> GetProductBySlug(string Slug);
         Task<ProductFilterResult> GetProductByFilter(ProductFilterParams @params);

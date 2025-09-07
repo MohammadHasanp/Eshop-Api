@@ -3,7 +3,7 @@ using MediatR;
 using Shop.Application.Users.AddAddress;
 using Shop.Application.Users.DeleteAddress;
 using Shop.Application.Users.EditAddress;
-using Shop.Query.UserAgg.Adrersses.Get;
+using Shop.Query.UserAgg.Adrersses.GetById;
 using Shop.Query.UserAgg.Adrersses.GetList;
 using Shop.Query.UserAgg.DTOs;
 

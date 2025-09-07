@@ -4,15 +4,15 @@ using Common.Application;
 using Common.Application.SecurityUtil;
 using Common.AspNetCore;
 using Common.Domain.ValueObjects;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.Infrastructure.JwtUtil;
+using Shop.Api.Infrastructure.Security;
 using Shop.Api.ViewModel.Auth;
 using Shop.Application.Users.AddToken;
 using Shop.Application.Users.Register;
 using Shop.Application.Users.RemoveToken;
+using Shop.Domain.RoleAgg.Enums;
 using Shop.Presentation.Facade.UserAgg;
 using Shop.Query.UserAgg.DTOs;
 using UAParser;
@@ -28,6 +28,7 @@ namespace Shop.Api.Controllers
             _userFacade = userFacade;
             _configuration = configuration;
         }
+
         [HttpPost("Login")]
         public async Task<ApiResult<LoginResultDto?>> Login(LoginUserViewModel viewModel)
         {
@@ -60,25 +61,21 @@ namespace Shop.Api.Controllers
             var result = await _userFacade.Register(command);
             return CommandResult(result);
         }
+        [Authorize]
         [HttpDelete("Logout")]
         public async Task<ApiResult> Logout()
         {
-            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer","");
+            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ","");
+            var result = await _userFacade.GetUserTokenByJwtTokenQuery(token);
+            if (result == null)
+                return CommandResult(OperationResult.NotFound());
 
-            if (token == null)
-                return CommandResult(OperationResult.NotFound("توکن یافت نشد"));
+           var deletion = await _userFacade.RemoveToken(new RemoveUserTokenCommand(result.UserId, result.Id));
 
-            var userToken = await _userFacade.GetUserTokenByJwtTokenQuery(token);
+            if (deletion.Status != OperationResultStatus.Success)
+                   return CommandResult(OperationResult.Error());
 
-            if (userToken == null)
-                return CommandResult(OperationResult.NotFound("توکن نامعتبر "));
-
-            var result = await _userFacade.RemoveToken(new RemoveUserTokenCommand(userToken.UserId, userToken.Id));
-
-            if (result.Status != OperationResultStatus.Success)
-                return CommandResult(OperationResult.Error("عملیات با شکست مواجه شد"));
-
-            return CommandResult(OperationResult.Success("کاربر مورد نظر از سایت خارج شد"));
+            return CommandResult(OperationResult.Success());
         }
 
         [HttpPost("RefreshToken")]

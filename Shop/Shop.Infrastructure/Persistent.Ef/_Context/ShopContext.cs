@@ -7,13 +7,6 @@ using Shop.Domain.RoleAgg;
 using Shop.Domain.SellerAgg;
 using Shop.Domain.SiteEntities;
 using Shop.Domain.UserAgg;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 
 namespace Shop.Infrastructure.Persistent.Ef._Context
 {
@@ -23,12 +16,12 @@ namespace Shop.Infrastructure.Persistent.Ef._Context
         {
         }
 
-        public DbSet<Category> Categories{ get; set; }
-        public DbSet<Comment> Comments{ get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<Product> Products{ get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<Seller> Sellers{ get; set; }
+        public DbSet<Seller> Sellers { get; set; }
         public DbSet<Banner> Banners { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<User> Users { get; set; }
@@ -43,7 +36,5 @@ namespace Shop.Infrastructure.Persistent.Ef._Context
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ShopContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
-
     }
-
 }

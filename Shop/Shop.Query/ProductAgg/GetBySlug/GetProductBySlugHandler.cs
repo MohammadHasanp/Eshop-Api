@@ -1,5 +1,6 @@
 ﻿using Common.Query;
 using Microsoft.EntityFrameworkCore;
+using Shop.Infrastructure.Persistent.Dapper;
 using Shop.Infrastructure.Persistent.Ef._Context;
 using Shop.Query.ProductAgg.DTOs;
 using Shop.Query.ProductAgg.Mapper;

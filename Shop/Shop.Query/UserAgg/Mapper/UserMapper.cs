@@ -2,11 +2,6 @@
 using Shop.Domain.UserAgg;
 using Shop.Infrastructure.Persistent.Ef._Context;
 using Shop.Query.UserAgg.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shop.Query.UserAgg.Mapper
 {
@@ -29,7 +24,7 @@ namespace Shop.Query.UserAgg.Mapper
                 Roles = user.Roles.Select(u => new UserRoleDto()
                 {
                     RoleId = u.RoleId,
-                    RoleTitle = ""
+                    RoleTitle =""
                 }).ToList()
             };
         }

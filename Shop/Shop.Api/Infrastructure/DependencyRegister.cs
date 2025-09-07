@@ -1,4 +1,5 @@
 ﻿using Shop.Api.Infrastructure.JwtUtil;
+using Shop.Api.Infrastructure.Security;
 
 namespace Shop.Api.Infrastructure
 {
@@ -10,6 +11,16 @@ namespace Shop.Api.Infrastructure
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<MapperProfile>();
+            });
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "ShopApi",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                    });
             });
         }
     }

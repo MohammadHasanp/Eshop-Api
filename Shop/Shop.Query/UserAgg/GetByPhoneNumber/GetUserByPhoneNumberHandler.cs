@@ -8,7 +8,7 @@ namespace Shop.Query.UserAgg.GetByPhoneNumber
 {
     public class GetUserByPhoneNumberHandler : IQueryHandler<GetUserByPhoneNumberQuery, UserDto>
     {
-        private readonly ShopContext _context;
+        private readonly ShopContext  _context;
         public GetUserByPhoneNumberHandler(ShopContext context)
         {
             _context = context;

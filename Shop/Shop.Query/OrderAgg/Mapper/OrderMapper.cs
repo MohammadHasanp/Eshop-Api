@@ -3,18 +3,13 @@ using Shop.Domain.OrderAgg;
 using Shop.Infrastructure.Persistent.Dapper;
 using Shop.Infrastructure.Persistent.Ef._Context;
 using Shop.Query.OrderAgg.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Shop.Query.OrderAgg.Mapper
 {
     public static class OrderMapper
     {
-        public static OrderFilterData MapFilterDate(this Order order, ShopContext context)
+        public static OrderFilterData MapFilterDate(this Order order,ShopContext  context)
         {
             var userFullName = context.Users.Where(u => u.Id == order.UserId).Select(u => u.UserName).First();
 
@@ -32,7 +27,7 @@ namespace Shop.Query.OrderAgg.Mapper
                 UserId = order.UserId
             };
         }
-        public static async Task<List<OrderItemDto>> GetOrderItem(this OrderDto orderDto, DapperContext dapperContext)
+        public static async Task<List<OrderItemDto>> GetOrderItem(this OrderDto orderDto,DapperContext dapperContext)
         {
             var connection = dapperContext.CreateConnection();
             var sql = @$"SELECT o.Id, s.ShopName ,o.OrderId,o.InventoryId,o.Count,o.price,

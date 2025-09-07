@@ -3,7 +3,7 @@ using Dapper;
 using Shop.Infrastructure.Persistent.Dapper;
 using Shop.Query.UserAgg.DTOs;
 
-namespace Shop.Query.UserAgg.Adrersses.Get
+namespace Shop.Query.UserAgg.Adrersses.GetById
 {
     public class GetUserAddressByIdHandler : IQueryHandler<GetUserAddressByIdQuery, AddressDto>
     {
@@ -11,7 +11,7 @@ namespace Shop.Query.UserAgg.Adrersses.Get
 
         public GetUserAddressByIdHandler(DapperContext dapperContext)
         {
-            this._dapperContext = dapperContext;
+            _dapperContext = dapperContext;
         }
 
         public async Task<AddressDto?> Handle(GetUserAddressByIdQuery request, CancellationToken cancellationToken)

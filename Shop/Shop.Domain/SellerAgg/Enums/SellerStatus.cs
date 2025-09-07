@@ -6,6 +6,6 @@
         New,
         Rejected,
         InActive,
-        Accepde     
+        Accepted     
     }
 }

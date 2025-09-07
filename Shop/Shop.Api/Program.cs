@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 var service = builder.Services;
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 ProjectBootstrapper.RegisterShopDependency(service, connectionString);
 DependencyRegister.RegisterApiDependency(service);
 
@@ -32,7 +33,9 @@ service.AddControllers()
             return new BadRequestObjectResult(result);
         });
     });
+service.AddSwaggerGen();
 service.AddJwtAuthentication(builder.Configuration);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 service.AddEndpointsApiExplorer();
 
@@ -45,9 +48,17 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("v1/swagger.json", "Shop API V1");
 });
 
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseCors("ShopApi");
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseApiCustomExceptionHandler();
 app.MapControllers();
-app.Run();
+
+app.Run(); ;

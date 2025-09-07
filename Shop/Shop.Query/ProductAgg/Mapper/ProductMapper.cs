@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shop.Domain.ProductAgg;
 using Shop.Infrastructure.Persistent.Ef._Context;
-using Shop.Query.CategoryAgg.DTOs;
 using Shop.Query.ProductAgg.DTOs;
 
 namespace Shop.Query.ProductAgg.Mapper

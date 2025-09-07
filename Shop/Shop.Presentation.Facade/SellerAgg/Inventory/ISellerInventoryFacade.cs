@@ -1,12 +1,7 @@
 ﻿using Common.Application;
 using Shop.Application.Sellers.AddInventory;
 using Shop.Application.Sellers.EditInventory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
+using Shop.Query.SellerAgg.DTOs;
 
 namespace Shop.Presentation.Facade.SellerAgg.Inventory
 {
@@ -14,5 +9,7 @@ namespace Shop.Presentation.Facade.SellerAgg.Inventory
     {
         Task<OperationResult> Add(AddSellerInventoryCommand command);
         Task<OperationResult> Edit(EditSellerInaventoryCommand command);
+        Task<SellerInventoryDto> GetById(long InventoriId);
+        Task<List<SellerInventoryDto>> GetAll(long SellerId);
     }
 }

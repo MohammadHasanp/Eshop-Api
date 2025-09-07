@@ -1,16 +1,18 @@
-﻿using AngleSharp.Dom;
-using Common.Application;
-using Common.AspNetCore;
+﻿using Common.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Api.Infrastructure.Security;
 using Shop.Application.Categories.AddChild;
 using Shop.Application.Categories.Create;
 using Shop.Application.Categories.Edit;
+using Shop.Domain.RoleAgg.Enums;
 using Shop.Presentation.Facade.CategoryAgg;
 using Shop.Query.CategoryAgg.DTOs;
 using System.Net;
 
 namespace Shop.Api.Controllers
 {
+    [PermissionChecker(Permission.Category_Management)]
     public class CategoryController : ApiController
     {
         private readonly ICategoryFacade _category;
@@ -18,6 +20,7 @@ namespace Shop.Api.Controllers
         {
             _category = category;
         }
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ApiResult<List<CategoryDto>>> GetCategories()
         {
@@ -30,7 +33,7 @@ namespace Shop.Api.Controllers
             var result = await _category.GetCategoryById(id);
             return QueryResult(result);
         }
-        [HttpGet("getchild/{ParentId}")]
+        [HttpGet("GetChild/{ParentId}")]
         public async Task<ApiResult<List<SubCategoryDto>>> GetCategoriesByParentId(int perntId)
         {
             var result = await _category.GetCategoryByParentId(perntId);
@@ -43,7 +46,7 @@ namespace Shop.Api.Controllers
             var url = Url.Action("GetCategoryById", "Category", new {Id =result.Data},Request.Scheme);
             return CommandResult(result,HttpStatusCode.Created,url);
         }
-        [HttpPost("Addchild")]
+        [HttpPost("AddChild")]
         public async Task<ApiResult<long>> CreateCategory(AddChildCategoryCommand command)
         {
             var result = await _category.Addchilld(command);

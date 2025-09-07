@@ -8,7 +8,7 @@ namespace Shop.Query.BannerAgg.GetById
 {
     public class GetBannerByIdHandler : IQueryHandler<GetBannerByIdQuery, BannerDto>
     {
-        private readonly ShopContext _context;
+        private readonly ShopContext  _context;
         public GetBannerByIdHandler(ShopContext context)
         {
             _context = context;

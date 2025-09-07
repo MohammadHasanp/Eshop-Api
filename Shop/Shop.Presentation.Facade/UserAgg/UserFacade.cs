@@ -15,7 +15,6 @@ using Shop.Query.UserAgg.GetByPhoneNumber;
 using Shop.Query.UserAgg.GetList;
 using Shop.Query.UserAgg.UserToken.GetByJwtToken;
 using Shop.Query.UserAgg.UserToken.GetByRefreshToken;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Shop.Presentation.Facade.UserAgg
 {

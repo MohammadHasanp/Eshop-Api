@@ -11,5 +11,6 @@ namespace Shop.Presentation.Facade.SellerAgg
         Task<OperationResult> Edit(EditSellerCommand command);
         Task<SellerDto> GetSellerById(long Id);
         Task<SellerFilterResult> GetSellerByFilter(SellerFilterParams @params);
+        Task<SellerDto> GetByUserId(long UserId);
     }
 }

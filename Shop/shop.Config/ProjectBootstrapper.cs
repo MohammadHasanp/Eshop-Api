@@ -26,6 +26,7 @@ namespace shop.Config
         public static void RegisterShopDependency(IServiceCollection services,string connectionString)
         {
             InfrastructureBootstrapper.Init(services,connectionString);
+            FacadeBootstrapper.InitFacadeDependency(services);
 
             services.AddMediatR(cfg =>
             {
@@ -41,7 +42,7 @@ namespace shop.Config
             services.AddTransient<ISellerDomainService,SellerDomainService>();
             services.AddTransient<IUserDomainService,UserDomainService>();
             services.AddTransient<IFileService,FileService>();
-            FacadeBootstrapper.InitFacadeDependency(services);
+           
 
         }
     }
