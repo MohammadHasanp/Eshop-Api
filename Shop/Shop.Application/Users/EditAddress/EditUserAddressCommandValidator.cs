@@ -25,11 +25,11 @@ namespace Shop.Application.Users.EditAddress
                 .NotNull().WithMessage(ValidationMessages.required("ادرس پستی"))
                 .NotEmpty().WithMessage(ValidationMessages.required("ادرس پستی"));
 
-            RuleFor(a => a.Phone)
+            RuleFor(a => a.PhoneNumber)
                 .NotNull().WithMessage(ValidationMessages.required("تلفن"))
                 .NotEmpty().WithMessage(ValidationMessages.required("تلفن"));
 
-            RuleFor(a => a.Phone)
+            RuleFor(a => a.PhoneNumber)
                 .NotNull().WithMessage(ValidationMessages.required("نام"))
                 .NotEmpty().WithMessage(ValidationMessages.required("تام"));
 

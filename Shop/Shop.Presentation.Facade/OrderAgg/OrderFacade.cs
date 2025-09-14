@@ -8,6 +8,7 @@ using Shop.Application.Orders.IncreaseItemCount;
 using Shop.Query.OrderAgg.DTOs;
 using Shop.Query.OrderAgg.GetByFIiter;
 using Shop.Query.OrderAgg.GetById;
+using Shop.Query.OrderAgg.GetCurrentOrder;
 
 namespace Shop.Presentation.Facade.OrderAgg
 {
@@ -28,9 +29,14 @@ namespace Shop.Presentation.Facade.OrderAgg
             return await _mediator.Send(command);
         }
 
-        public async Task<OperationResult> Delete(DeleteOrderItemCommand command)
+        public async Task<OperationResult> Delete(long UserId, long ItemId)
         {
-            return await _mediator.Send(command);
+            return await _mediator.Send(new DeleteOrderItemCommand(UserId,ItemId));
+        }
+
+        public Task<OrderDto?> GetCurrentUserOrder(long currentId)
+        {
+            return _mediator.Send(new GetCurrentUserOrderQuery(currentId));
         }
 
         public async Task<OrderFilterResult> GetOrderByFilter(OrderFilterParams @params)

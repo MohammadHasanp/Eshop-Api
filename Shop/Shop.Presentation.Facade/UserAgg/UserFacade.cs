@@ -2,6 +2,7 @@
 using Common.Application.SecurityUtil;
 using MediatR;
 using Shop.Application.Users.AddToken;
+using Shop.Application.Users.ChangePassword;
 using Shop.Application.Users.ChargeWallet;
 using Shop.Application.Users.Create;
 using Shop.Application.Users.Edit;
@@ -89,6 +90,11 @@ namespace Shop.Presentation.Facade.UserAgg
         {
             var hashToken = Sha256Hasher.Hash(jwtToken);
             return await _mediator.Send(new GetUserTokenByJwtTokenQuery(hashToken));
+        }
+
+        public Task<OperationResult> ChangePassword(ChangeUserPasswordCommand command)
+        {
+            return _mediator.Send(command);
         }
     }
 }

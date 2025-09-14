@@ -1,5 +1,6 @@
 ﻿using Common.Application;
 using MediatR;
+using Shop.Application.Users.ActivateAddress;
 using Shop.Application.Users.AddAddress;
 using Shop.Application.Users.DeleteAddress;
 using Shop.Application.Users.EditAddress;
@@ -39,6 +40,11 @@ namespace Shop.Presentation.Facade.UserAgg.UserAddress
         public async Task<AddressDto> GetAddressById(long AddressId)
         {
             return await _mediator.Send(new GetUserAddressByIdQuery(AddressId));
+        }
+
+        public async Task<OperationResult> ActivateUserAddress(ActivateUserAddressCommand command)
+        {
+            return await _mediator.Send(command);
         }
     }
 }

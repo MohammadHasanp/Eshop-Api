@@ -61,4 +61,4 @@ app.UseAuthorization();
 app.UseApiCustomExceptionHandler();
 app.MapControllers();
 
-app.Run(); ;
+app.Run();

@@ -805,7 +805,7 @@ namespace Shop.Infrastructure.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
 
-                            b1.OwnsOne("Common.Domain.ValueObjects.PhoneNumber", "Phone", b2 =>
+                            b1.OwnsOne("Common.Domain.ValueObjects.PhoneNumber", "PhoneNumber", b2 =>
                                 {
                                     b2.Property<long>("UserAddressId")
                                         .HasColumnType("bigint");
@@ -824,7 +824,7 @@ namespace Shop.Infrastructure.Migrations
                                         .HasForeignKey("UserAddressId");
                                 });
 
-                            b1.Navigation("Phone")
+                            b1.Navigation("PhoneNumber")
                                 .IsRequired();
                         });
 

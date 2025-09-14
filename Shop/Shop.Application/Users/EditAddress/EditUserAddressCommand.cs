@@ -8,13 +8,14 @@ namespace Shop.Application.Users.EditAddress
 {
     public class EditUserAddressCommand : IBaseCommand
     {
+        private  EditUserAddressCommand() { }
         public long UserId { get; set; }
         public long Id { get; set; }
         public string Shire { get; private set; }
         public string City { get; private set; }
         public string PostalCode { get; private set; }
         public string PostalAddress { get; private set; }
-        public PhoneNumber Phone { get; private set; }
+        public PhoneNumber PhoneNumber { get; private set; }
         public string Name { get; private set; }
         public string Family { get; private set; }
         public string NationalCode { get; private set; }
@@ -27,7 +28,7 @@ namespace Shop.Application.Users.EditAddress
             City = city;
             PostalCode = postalCode;
             PostalAddress = postalAddress;
-            Phone = phone;
+            PhoneNumber = phone;
             Name = name;
             Family = family;
             NationalCode = nationalCode;
@@ -49,8 +50,9 @@ namespace Shop.Application.Users.EditAddress
             
             if (user == null)
                 return OperationResult.NotFound();
-            var address = new UserAddress(request.Shire, request.City, request.PostalCode, request.PostalAddress, request.Phone, request.Name
+            var address = new UserAddress(request.Shire, request.City, request.PostalCode, request.PostalAddress, request.PhoneNumber, request.Name
                 , request.Family, request.NationalCode);
+
             user.EditAddress(address,request.Id);
             await _repository.Save();
             return OperationResult.Success();

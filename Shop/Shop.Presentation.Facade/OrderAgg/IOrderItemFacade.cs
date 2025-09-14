@@ -20,10 +20,11 @@ namespace Shop.Presentation.Facade.OrderAgg
         Task<OperationResult>Add(AddOrderItemCommand command);
         Task<OperationResult> DecreaseItemCount(DecreaseItemCountCommand command);
         Task<OperationResult> IncreaseItemCount(IncreaseOrderItemCountCommand command);
-        Task<OperationResult> Delete(DeleteOrderItemCommand command);
+        Task<OperationResult> Delete(long UserId, long ItemId);
         Task<OperationResult> Ordercheckout(CheckoutOrderItemCommand command);
 
         Task<OrderDto?> GetOrderById(long Id);
         Task<OrderFilterResult> GetOrderByFilter(OrderFilterParams @params);
+        Task<OrderDto?> GetCurrentUserOrder(long CurrentId);
     }
 }

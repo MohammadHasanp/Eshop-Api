@@ -2,6 +2,7 @@
 using Common.Domain.Exceptions;
 using Shop.Domain.UserAgg.Enums;
 using Shop.Domain.UserAgg.Services;
+using System.Diagnostics.Contracts;
 using static Common.Domain.Exceptions.BaseDomainExceotion;
 
 namespace Shop.Domain.UserAgg
@@ -48,7 +49,7 @@ namespace Shop.Domain.UserAgg
             Addresses = new List<UserAddress>();
             Tokens = new List<UserToken>();
             AvatarName = "avatar.png";
-            IsActive = true;
+            IsActive = false;
         }
         //Edit User
         public void Edit(string userName, string fullName, string email, string phoneNumber, Gender gender
@@ -72,7 +73,7 @@ namespace Shop.Domain.UserAgg
         public static User RegisterUser(string password, string phoneNumber
             , IUserDomainService domainUserService)
         {
-            return new User("", "", password,"ttest@gmail.com", phoneNumber, Gender.None, domainUserService);
+            return new User("", "", password,"ttew1sdkt@gmail.com", phoneNumber, Gender.None, domainUserService);
         }
         //AddAsync Address user
         public void AddAddress(UserAddress Address)
@@ -83,7 +84,7 @@ namespace Shop.Domain.UserAgg
         //Edit Address User
         public void EditAddress(UserAddress address, long addressId)
         {
-            var oldAddress = Addresses.FirstOrDefault(a => a.UserId == address.Id);
+            var oldAddress = Addresses.FirstOrDefault(a => a.Id == addressId);
             if (oldAddress == null)
             {
                 throw new NullOrEmptyDomainDataException("Address Not Found");
@@ -101,6 +102,18 @@ namespace Shop.Domain.UserAgg
                 throw new NullOrEmptyDomainDataException("Address Not Found");
             }
             Addresses.Remove(oldAddress);
+        }
+        public void SetActiveAddress(long addressId)
+        {
+            var address = Addresses.FirstOrDefault(a=>a.Id == addressId);
+            if (address == null)
+                throw new NullOrEmptyDomainDataException("ادرس مورد نظر یافت نشد");
+
+            foreach (var userAddress in Addresses)
+            {
+                userAddress.SetDeActive();
+            }
+            address.SetActive();
         }
         //Charget Wallet User
         public void ChargeWallet(Wallet wallet)
@@ -134,6 +147,12 @@ namespace Shop.Domain.UserAgg
             Tokens.Remove(token);
             return token.HashJwtToken;
         }
+        public void ChangePassword(string newPassword)
+        {
+            NullOrEmptyDomainDataException.CheckString((newPassword,nameof(newPassword)));
+            Password = newPassword;
+        }
+
         //Validation User
         public void Guard(string phoneNumber, string email, IUserDomainService domainUserService)
         {
@@ -153,5 +172,7 @@ namespace Shop.Domain.UserAgg
                 if (domainUserService.IsEmailExist(email))
                     throw new InvalidDomainDataException("ایمیل تکراری است");
         }
+
+    
     }
 }

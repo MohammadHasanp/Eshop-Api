@@ -25,7 +25,7 @@ namespace Shop.Query.OrderAgg.GetById
             orderDto.UserFullName = await _context.Users.Where(u => u.Id == order.UserId).Select(u => u.UserName).FirstAsync();
 
             orderDto.Items = await orderDto.GetOrderItem(_dapperContext);
-            return orderDto;
+            return orderDto;  
         }
     }
 }

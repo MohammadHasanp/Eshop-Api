@@ -1,4 +1,5 @@
 ﻿using Common.AspNetCore;
+using Common.AspNetCore.ClaimUtils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.Infrastructure.Security;
@@ -10,6 +11,7 @@ using Shop.Application.Orders.IncreaseItemCount;
 using Shop.Domain.RoleAgg.Enums;
 using Shop.Presentation.Facade.OrderAgg;
 using Shop.Query.OrderAgg.DTOs;
+using System.Runtime.InteropServices;
 
 namespace Shop.Api.Controllers
 {
@@ -26,6 +28,12 @@ namespace Shop.Api.Controllers
         public async Task<ApiResult<OrderFilterResult>> GetOrderbyFilter([FromQuery]OrderFilterParams @params)
         {
             var result = await _orderItemFacade.GetOrderByFilter(@params);
+            return QueryResult(result);
+        }
+        [HttpGet("current")]
+        public async Task<ApiResult<OrderDto?>> GetCurrentOrder()
+        {
+            var result = await _orderItemFacade.GetCurrentUserOrder(User.GetUserId());
             return QueryResult(result);
         }
         [HttpGet("{Id}")]
@@ -59,9 +67,9 @@ namespace Shop.Api.Controllers
             return CommandResult(result);
         }
         [HttpDelete("OrderItem")]
-        public async Task<ApiResult> DeleteOrderItem(DeleteOrderItemCommand command)
+        public async Task<ApiResult> DeleteOrderItem(long itemId)
         {
-            var result = await _orderItemFacade.Delete(command);
+            var result = await _orderItemFacade.Delete(User.GetUserId(),itemId);
             return CommandResult(result);
         }
     }

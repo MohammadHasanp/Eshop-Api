@@ -17,7 +17,7 @@ namespace Shop.Application.Users.DeleteAddress
 
         public async Task<OperationResult> Handle(DeleteUserAddressCommand request, CancellationToken cancellationToken)
         {
-            var user = await _repository.GetTracking(request.AddressId);
+            var user = await _repository.GetTracking(request.UserId);
 
             if (user == null)
                 return OperationResult.NotFound();

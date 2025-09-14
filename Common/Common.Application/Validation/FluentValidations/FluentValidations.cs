@@ -1,8 +1,8 @@
 ﻿using Common.Application.FileUtil;
 using Common.Application.SecurityUtil;
+using Common.Domain;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
-using Common.Domain;
 
 namespace Common.Application.Validation.FluentValidations
 {
@@ -43,7 +43,7 @@ namespace Common.Application.Validation.FluentValidations
                 }
             });
         }
-        public static IRuleBuilderOptionsConditions<T, string> ValidNationalCode<T>(this IRuleBuilder<T, string> ruleBuilder, string errorMessage = "کد ملی نامعتبر است")
+        public static IRuleBuilderOptionsConditions<T,string> ValidNationalCode<T>(this IRuleBuilder<T, string> ruleBuilder, string errorMessage = "کد ملی نامعتبر است")
         {
             return ruleBuilder.Custom((nationalCode, context) =>
             {

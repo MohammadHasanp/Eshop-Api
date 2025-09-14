@@ -1,6 +1,4 @@
-﻿using AngleSharp.Browser;
-using Azure.Core;
-using Common.Application;
+﻿using Common.Application;
 using Common.Application.SecurityUtil;
 using Common.AspNetCore;
 using Common.Domain.ValueObjects;

@@ -17,18 +17,16 @@ namespace Shop.Application.Users.Edit
         public long UserId { get; private set; }
         public string UserName { get; private set; }
         public string FullName { get; private set; }
-        public string Password { get; set; }
         public string Email { get; private set; }
         public string PhoneNumber { get; private set; }
         public Gender Gender { get; private set; }
         public IFormFile? Avatar { get; private set; }
 
-        public EditUserCommand(string userName, string fullName, string password, string email, string phoneNumber
+        public EditUserCommand(string userName, string fullName, string email, string phoneNumber
             , Gender gender, IFormFile? avatar, long userId)
         {
             UserName = userName;
             FullName = fullName;
-            Password = password;
             Email = email;
             PhoneNumber = phoneNumber;
             Gender = gender;

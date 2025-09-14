@@ -50,6 +50,10 @@ namespace Shop.Domain.UserAgg
         {
             IsActive = true;
         }
+        public void SetDeActive()
+        {
+            IsActive = false;
+        }
         //Edit Addres User
         public void Edit(string shire, string city, string postalCode, string postalAddress, PhoneNumber phone, string name, string family, string nationalCode)
         {
