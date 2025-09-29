@@ -15,13 +15,12 @@ namespace Shop.Query.SellerAgg.Inventory.GetList
         public async Task<List<SellerInventoryDto>> Handle(GetAllSellerInventoryBySellerIdQuery request, CancellationToken cancellationToken)
         {
             using var connection = _context.CreateConnection();
-            var sql = @$"SELECT Top(1) i.Id, SellerId , ProductId ,Count , Price,i.CreationDate , DiscountPercentage , s.ShopName,
+            var sql = @$"SELECT i.Id, SellerId , ProductId ,Count , Price,i.CreationDate , DiscountPercentage , s.ShopName,
                          p.Title as ProductTitle,p.ImageName as ProductImage from {_context.Inventories}
                          i inner join {_context.Sellers} s on i.SellerId = s.Id
-                         inner join {_context.Products} p on i.ProductId = p.Id where i.SellerId = @SellerId";
+                         inner join {_context.Products} p on i.ProductId = p.Id where i.SellerId = @sellerId";
 
-            var inventories = await connection.QueryAsync<SellerInventoryDto>(sql, new {SellerId = request.SellerId});
-
+            var inventories = await connection.QueryAsync<SellerInventoryDto>(sql, new { sellerId = request.SellerId});
             return inventories.ToList();
 
         }

@@ -1,11 +1,13 @@
 ﻿using Common.Application;
 using Shop.Application.Users.AddToken;
+using Shop.Application.Users.AddUserRole;
 using Shop.Application.Users.ChangePassword;
 using Shop.Application.Users.ChargeWallet;
 using Shop.Application.Users.Create;
 using Shop.Application.Users.Edit;
 using Shop.Application.Users.Register;
 using Shop.Application.Users.RemoveToken;
+using Shop.Application.Users.SetActive;
 using Shop.Query.UserAgg.DTOs;
 using System.Threading.Tasks;
 
@@ -20,6 +22,9 @@ namespace Shop.Presentation.Facade.UserAgg
         Task<OperationResult> AddToken(AddUserTokenCommand command);
         Task<OperationResult<string>> RemoveToken(RemoveUserTokenCommand command);
         Task<OperationResult>ChangePassword(ChangeUserPasswordCommand command);
+        Task<OperationResult> SetActive(SetActiveUserCommand command);
+
+        Task<OperationResult> AddUserRole(AddUserRoleCommand command);
 
         Task<UserDto>GetUserByEmail(string email);
         Task<UserTokenDto?> GetUserTokenByRefreshToken(string refreshToken);

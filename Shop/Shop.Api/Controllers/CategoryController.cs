@@ -1,7 +1,9 @@
 ﻿using Common.AspNetCore;
+using Common.Domain.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.Infrastructure.Security;
+using Shop.Api.ViewModel.Category;
 using Shop.Application.Categories.AddChild;
 using Shop.Application.Categories.Create;
 using Shop.Application.Categories.Edit;
@@ -12,7 +14,7 @@ using System.Net;
 
 namespace Shop.Api.Controllers
 {
-    [PermissionChecker(Permission.Category_Management)]
+    //[PermissionChecker(Permission.Category_Management)]
     public class CategoryController : ApiController
     {
         private readonly ICategoryFacade _category;
@@ -33,36 +35,51 @@ namespace Shop.Api.Controllers
             var result = await _category.GetCategoryById(id);
             return QueryResult(result);
         }
-        [HttpGet("GetChild/{ParentId}")]
-        public async Task<ApiResult<List<SubCategoryDto>>> GetCategoriesByParentId(int perntId)
+        [HttpGet("GetChild/{perntId}")]
+        public async Task<ApiResult<List<SubCategoryDto>>> GetCategoriesByParentId(long perntId)
         {
             var result = await _category.GetCategoryByParentId(perntId);
             return QueryResult(result);
         }
         [HttpPost]
-        public async Task<ApiResult<long>> CreateCategory(CreateCategoryCommand command)
+        public async Task<ApiResult<long>> CreateCategory(CreateCategoryViewModel viewModel)
         {
-            var result = await _category.Create(command);
-            var url = Url.Action("GetCategoryById", "Category", new {Id =result.Data},Request.Scheme);
-            return CommandResult(result,HttpStatusCode.Created,url);
+            var model = new CreateCategoryCommand(viewModel.Title, viewModel.Slug
+                , new SeoData(viewModel.SeoData.MetaTitle, viewModel.SeoData.MetaDescription
+                , viewModel.SeoData.MetaKeyWords, viewModel.SeoData.IndexPage, viewModel.SeoData.Canonical
+                , viewModel.SeoData.Schema));
+
+            var result = await _category.Create(model);
+            var url = Url.Action("GetCategoryById", "Category", new { Id = result.Data }, Request.Scheme);
+            return CommandResult(result, HttpStatusCode.Created);
         }
         [HttpPost("AddChild")]
-        public async Task<ApiResult<long>> CreateCategory(AddChildCategoryCommand command)
+        public async Task<ApiResult<long>> CreateChildCategory(AddChildCategoryViewModel viewModel)
         {
-            var result = await _category.Addchilld(command);
-            var url = Url.Action("GetCategoryById", "Category", new {Id = result.Data },Request.Scheme);
-            return CommandResult(result,HttpStatusCode.Created,url);
+            var model = new AddChildCategoryCommand(viewModel.ParentId, viewModel.Title, viewModel.Slug
+                , new SeoData(viewModel.SeoData.MetaTitle, viewModel.SeoData.MetaDescription
+                , viewModel.SeoData.MetaKeyWords, viewModel.SeoData.IndexPage, viewModel.SeoData.Canonical
+                , viewModel.SeoData.Schema));
+
+            var result = await _category.Addchilld(model);
+            var url = Url.Action("GetCategoryById", "Category", new { Id = result.Data }, Request.Scheme);
+            return CommandResult(result, HttpStatusCode.Created, url);
         }
         [HttpPut]
-        public async Task<ApiResult> EditCategory(EditCategoryCommand command)
+        public async Task<ApiResult> EditCategory(EditCategoryViewModel viewModel)
         {
-            var result = await _category.Edit(command);
+            var model = new EditCategoryCommand(viewModel.Id, viewModel.Title, viewModel.Slug
+                  , new SeoData(viewModel.SeoData.MetaTitle, viewModel.SeoData.MetaDescription
+                  , viewModel.SeoData.MetaKeyWords, viewModel.SeoData.IndexPage, viewModel.SeoData.Canonical
+                  , viewModel.SeoData.Schema));
+
+            var result = await _category.Edit(model);
             return CommandResult(result);
         }
-        [HttpDelete("{categoryID}")]
-        public async Task<ApiResult> DeleteCategory(long categoryID)
+        [HttpDelete("{categoryId}")]
+        public async Task<ApiResult> DeleteCategory(long categoryId)
         {
-            var result = await _category.Delete(categoryID);
+            var result = await _category.Delete(categoryId);
             return CommandResult(result);
         }
     }

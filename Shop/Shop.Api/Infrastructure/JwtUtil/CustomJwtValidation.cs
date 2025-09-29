@@ -1,4 +1,4 @@
-﻿using Common.AspNetCore.ClaimUtils;
+﻿using Common.AspNetCore.Utilities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Shop.Presentation.Facade.UserAgg;
 

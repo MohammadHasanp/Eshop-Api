@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.Infrastructure.Security;
+using Shop.Api.ViewModel.Slider;
 using Shop.Application.SiteEntities.Sliders.Create;
 using Shop.Application.SiteEntities.Sliders.Edit;
 using Shop.Domain.RoleAgg.Enums;
@@ -12,7 +13,7 @@ using Shop.Query.SliderAgg.DTOs;
 
 namespace Shop.Api.Controllers
 {
-    [PermissionChecker(Permission.CRUD_Slider)]
+    //[PermissionChecker(Permission.CRUD_Slider)]
     public class SliderController : ApiController
     {
         private readonly ISliderFacade _sliderFacade;
@@ -34,17 +35,25 @@ namespace Shop.Api.Controllers
             return QueryResult(result);
         }
         [HttpPost]
-        public async Task<ApiResult> CreateSlider(CreateSliderCommand command)
+        public async Task<ApiResult> CreateSlider(CreateSliderViewModel viewModel)
         {
-            var result = await _sliderFacade.Create(command);
+            var model = new CreateSliderCommand(viewModel.Title,viewModel.Link,viewModel.ImageFile);
+            var result = await _sliderFacade.Create(model);
             return CommandResult(result);
         }
         [HttpPut]
-        public async Task<ApiResult> EditSlider(EditSliderCommand command)
+        public async Task<ApiResult> EditSlider(EditSliderViewModel viewModel)
         {
-            var result = await _sliderFacade.Edit(command);
+            var model = new EditSliderCommand(viewModel.SliderId, viewModel.Title, viewModel.Link, viewModel.ImageFile);
+            var result = await _sliderFacade.Edit(model);
             return CommandResult(result);
         }
 
+        [HttpDelete("{sliderId}")]
+        public async Task<ApiResult> DeleteSlider(long sliderId)
+        {
+            var result =await _sliderFacade.Delete(sliderId);
+            return CommandResult(result);
+        }
     }
 }

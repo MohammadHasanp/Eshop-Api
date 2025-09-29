@@ -4,12 +4,7 @@ using Shop.Application.Products.Create;
 using Shop.Application.Products.Edit;
 using Shop.Application.Products.RemoveImage;
 using Shop.Query.ProductAgg.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
+using Shop.Query.SellerAgg.DTOs;
 
 namespace Shop.Presentation.Facade.ProductAgg
 {
@@ -24,6 +19,12 @@ namespace Shop.Presentation.Facade.ProductAgg
         Task<ProductShopResult> GetForShop(ProductShopFilterParams @params);
         Task<ProductDto> GetProductById(long Id);
         Task<ProductDto> GetProductBySlug(string Slug);
-        Task<ProductFilterResult> GetProductByFilter(ProductFilterParams @params);
+        Task<ProductFilterResult>GetProductByFilter(ProductFilterParams @params);
+        Task<SingleProductDto> GetProductBySlugForSinglePage(string slug);
+    }
+    public class SingleProductDto()
+    {
+        public ProductDto Product { get; set; }
+        public List<SellerInventoryDto> Inventories{ get; set; }
     }
 }

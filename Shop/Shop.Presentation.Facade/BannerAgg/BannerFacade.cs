@@ -1,6 +1,7 @@
 ﻿using Common.Application;
 using MediatR;
 using Shop.Application.SiteEntities.Banners.Create;
+using Shop.Application.SiteEntities.Banners.Delete;
 using Shop.Application.SiteEntities.Banners.Edit;
 using Shop.Query.BannerAgg.DTOs;
 using Shop.Query.BannerAgg.GetById;
@@ -19,6 +20,12 @@ namespace Shop.Presentation.Facade.BannerAgg
         {
             return await _mediator.Send(command);
         }
+
+        public Task<OperationResult> Delete(long BannerId)
+        {
+            return _mediator.Send(new DeleteBannerCommand(BannerId));
+        }
+
         public async Task<OperationResult> Edit(EditBannerCommand command)
         {
             return await _mediator.Send(command);

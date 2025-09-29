@@ -15,8 +15,9 @@ namespace Shop.Application.SiteEntities.Sliders.Edit
         public string Link { get; private set; }
         public IFormFile? ImageFile { get; private set; }
 
-        public EditSliderCommand(string title, string link, IFormFile? imageFile)
+        public EditSliderCommand(long sliderId,string title, string link, IFormFile? imageFile)
         {
+            SliderId = sliderId;
             Title = title;
             Link = link;
             ImageFile = imageFile;

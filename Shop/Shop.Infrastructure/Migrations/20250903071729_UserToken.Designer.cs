@@ -369,7 +369,7 @@ namespace Shop.Infrastructure.Migrations
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("IndexPage");
 
-                            b1.Property<string>("MateKeyWords")
+                            b1.Property<string>("MetaKeyWords")
                                 .IsRequired()
                                 .HasMaxLength(500)
                                 .HasColumnType("nvarchar(500)")
@@ -576,7 +576,7 @@ namespace Shop.Infrastructure.Migrations
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("IndexPage");
 
-                            b1.Property<string>("MateKeyWords")
+                            b1.Property<string>("MetaKeyWords")
                                 .IsRequired()
                                 .HasMaxLength(500)
                                 .HasColumnType("nvarchar(500)")

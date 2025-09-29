@@ -11,6 +11,7 @@ namespace Shop.Application.SiteEntities.Sliders.Create
 {
     public class CreateSliderCommand:IBaseCommand
     {
+
         public string Title { get; private set; }
         public string Link { get; private set; }
         public IFormFile ImageFile { get; private set; }

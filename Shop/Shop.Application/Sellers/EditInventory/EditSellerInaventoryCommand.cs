@@ -15,15 +15,15 @@ namespace Shop.Application.Sellers.EditInventory
         public long SellerId { get; private set; }
         public int Price { get; private set; }
         public int Count { get; private set; }
-        public int? PercentageDiscount { get; private set; }
+        public int? DiscountPercentage { get; private set; }
 
-        public EditSellerInaventoryCommand(long sellerId, long inventoryId, long productId, int price, int count, int? percentageDiscount)
+        public EditSellerInaventoryCommand(long sellerId, long inventoryId, int price, int count, int? discountPercentage)
         {
             InventoryId = inventoryId;
             SellerId = sellerId;
             Price = price;
             Count = count;
-            PercentageDiscount = percentageDiscount;
+            DiscountPercentage = discountPercentage;
         }
     }
 
@@ -39,10 +39,10 @@ namespace Shop.Application.Sellers.EditInventory
         public async Task<OperationResult> Handle(EditSellerInaventoryCommand request, CancellationToken cancellationToken)
         {
             var seller = await _repository.GetTracking(request.SellerId);
-
             if (seller == null)
                 return OperationResult.NotFound();
-            seller.EditInventory(request.InventoryId, request.Count, request.Price, request.PercentageDiscount);
+
+            seller.EditInventory(request.InventoryId, request.Count, request.Price, request.DiscountPercentage);
             await _repository.Save();
             return OperationResult.Success();
 

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Common.AspNetCore;
-using Common.AspNetCore.ClaimUtils;
+using Common.AspNetCore.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.ViewModel.Users;
@@ -38,7 +38,6 @@ namespace Shop.Api.Controllers
         [HttpPost]
         public async Task<ApiResult> AddUserAddress(AddUserAddressViewModel viewModel)
         {
-            Console.WriteLine("Request reached here");
             var command = _mapper.Map<AddUserAddressCommand>(viewModel);
             command.UserId = User.GetUserId();
             var result = await _userAddressFacade.AddUserAddress(command);

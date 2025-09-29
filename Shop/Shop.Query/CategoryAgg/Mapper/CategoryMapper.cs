@@ -48,6 +48,7 @@ namespace Shop.Query.CategoryAgg.Mapper
                 {
 
                     Id = c.Id,
+                    PrantId =(long) c.ParentId,
                     Title = c.Title,
                     SeoData = c.SeoData,
                     Slug = c.Slug,
@@ -66,6 +67,7 @@ namespace Shop.Query.CategoryAgg.Mapper
                 model.Add(new SecondaryChildCategoryDto()
                 {
                     Id = c.Id,
+                    PrantId = (long) c.ParentId,
                     Title = c.Title,
                     SeoData = c.SeoData,
                     Slug = c.Slug,

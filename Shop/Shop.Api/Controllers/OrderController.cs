@@ -1,5 +1,5 @@
 ﻿using Common.AspNetCore;
-using Common.AspNetCore.ClaimUtils;
+using Common.AspNetCore.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.Infrastructure.Security;

@@ -9,5 +9,6 @@ namespace Shop.Domain.RoleAgg.Repository
 {
     public interface IRoleRepository:IBaseRepository<Role>
     {
+        void Delete(Role role);
     }
 }

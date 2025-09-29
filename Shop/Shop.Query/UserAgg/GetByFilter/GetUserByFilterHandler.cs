@@ -28,6 +28,7 @@ namespace Shop.Query.UserAgg.GetByFilter
 
             if (@params.Id != null)
                 result = result.Where(u => u.Id == @params.Id);
+
             var skip = (@params.PageId - 1) * @params.Take;
 
             var model = new UserFilterResult()

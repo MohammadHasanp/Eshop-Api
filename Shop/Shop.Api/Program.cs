@@ -1,8 +1,7 @@
 ﻿using Common.AspNetCore;
 using Common.AspNetCore.Middlewares;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.DependencyInjection;
 using shop.Config;
 using Shop.Api.Infrastructure;
 using Shop.Api.Infrastructure.JwtUtil;
@@ -15,7 +14,10 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 ProjectBootstrapper.RegisterShopDependency(service, connectionString);
 DependencyRegister.RegisterApiDependency(service);
 
-
+service.AddDistributedRedisCache(option =>
+{
+    option.Configuration = "localhost:6379";
+});
 service.AddControllers()
     .ConfigureApiBehaviorOptions(option =>
     {
@@ -45,10 +47,8 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("v1/swagger.json", "Shop API V1");
+    c.SwaggerEndpoint("v1/swagger.json", "ShopController API V1");
 });
-
-
 app.UseSwagger();
 app.UseSwaggerUI();
 

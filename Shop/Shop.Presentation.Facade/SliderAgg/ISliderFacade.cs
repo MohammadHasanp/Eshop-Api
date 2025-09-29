@@ -1,5 +1,6 @@
 ﻿using Common.Application;
 using Shop.Application.SiteEntities.Sliders.Create;
+using Shop.Application.SiteEntities.Sliders.Delete;
 using Shop.Application.SiteEntities.Sliders.Edit;
 using Shop.Query.SliderAgg.DTOs;
 using System;
@@ -14,6 +15,7 @@ namespace Shop.Presentation.Facade.SliderAgg
     {
         Task<OperationResult> Create(CreateSliderCommand command);
         Task<OperationResult> Edit(EditSliderCommand command);
+        Task<OperationResult> Delete(long SliderId);
 
 
 

@@ -1,7 +1,6 @@
-﻿
-using System.Security.Claims;
+﻿using System.Security.Claims;
 
-namespace Common.AspNetCore.ClaimUtils
+namespace Common.AspNetCore.Utilities
 {
     public static class ClaimUtils
     {

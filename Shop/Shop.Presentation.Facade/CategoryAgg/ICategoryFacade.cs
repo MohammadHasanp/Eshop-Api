@@ -20,7 +20,7 @@ namespace Shop.Presentation.Facade.CategoryAgg
         Task<OperationResult> Delete(long categoryId);
 
         Task<CategoryDto> GetCategoryById(long Id);
-        Task<List<SubCategoryDto>>GetCategoryByParentId(int parentId);
+        Task<List<SubCategoryDto>>GetCategoryByParentId(long parentId);
 
         Task<List<CategoryDto>> GetAllCategory();
     }

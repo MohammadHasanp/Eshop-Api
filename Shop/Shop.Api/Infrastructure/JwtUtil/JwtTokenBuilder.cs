@@ -25,7 +25,7 @@ namespace Shop.Api.Infrastructure.JwtUtil
                 issuer: configuration["JwtConfig:Issuer"],
                 audience: configuration["JwtConfig:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddHours(1),
+                expires: DateTime.Now.AddDays(7),
                 signingCredentials: credential);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

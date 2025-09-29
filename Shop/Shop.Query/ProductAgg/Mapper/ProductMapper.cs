@@ -50,7 +50,7 @@ namespace Shop.Query.ProductAgg.Mapper
                 Id = product.Id,
                 ImageName = product.ImageName,
                 Slug = product.Slug,
-                Tilte = product.Title
+                Title = product.Title
             };
         }
 

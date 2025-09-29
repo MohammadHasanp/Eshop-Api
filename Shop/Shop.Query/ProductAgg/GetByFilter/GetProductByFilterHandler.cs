@@ -28,11 +28,13 @@ namespace Shop.Query.ProductAgg.GetByFilter
                 result = result.Where(p => p.Slug == @params.Slug);
 
             var skip = (@params.PageId - 1) * @params.Take;
+            var products = await result.Skip(skip).Take(@params.Take).ToListAsync(cancellationToken);
+
             var model = new ProductFilterResult()
             {
-                Datas =await result.Skip(skip).Take(@params.Take).Select(p=>p.MapFilterData())
-                .ToListAsync(cancellationToken),
-                
+                Datas =products.Select(p=>p.MapFilterData())
+                .ToList(),
+
                 FilterParams = @params
             };
             model.GeneratePaging(result,@params.Take,@params.PageId);

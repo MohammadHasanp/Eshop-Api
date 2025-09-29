@@ -26,7 +26,7 @@ namespace Shop.Api.Infrastructure.JwtUtil
                     ValidateLifetime = true,
                     ValidateIssuer = true,
                     ValidateIssuerSigningKey = true,
-                    ValidateAudience = true
+                    ValidateAudience = true,
                 };
                 option.SaveToken = true;
                 option.Events = new JwtBearerEvents()

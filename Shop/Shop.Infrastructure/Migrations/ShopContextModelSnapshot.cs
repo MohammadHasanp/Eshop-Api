@@ -17,7 +17,7 @@ namespace Shop.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.8")
+                .HasAnnotation("ProductVersion", "9.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -38,8 +38,7 @@ namespace Shop.Infrastructure.Migrations
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(900)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -356,36 +355,30 @@ namespace Shop.Infrastructure.Migrations
                                 .HasColumnType("bigint");
 
                             b1.Property<string>("Canonical")
-                                .IsRequired()
                                 .HasMaxLength(500)
                                 .HasColumnType("nvarchar(500)")
                                 .HasColumnName("Canonical");
 
-                            b1.Property<string>("IndexPage")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                            b1.Property<bool?>("IndexPage")
+                                .HasColumnType("bit")
                                 .HasColumnName("IndexPage");
 
-                            b1.Property<string>("MateKeyWords")
-                                .IsRequired()
-                                .HasMaxLength(500)
-                                .HasColumnType("nvarchar(500)")
-                                .HasColumnName("MetaKeyWords");
-
                             b1.Property<string>("MetaDescription")
-                                .IsRequired()
                                 .HasMaxLength(500)
                                 .HasColumnType("nvarchar(500)")
                                 .HasColumnName("MetaDescription");
 
+                            b1.Property<string>("MetaKeyWords")
+                                .HasMaxLength(500)
+                                .HasColumnType("nvarchar(500)")
+                                .HasColumnName("MetaKeyWords");
+
                             b1.Property<string>("MetaTitle")
-                                .IsRequired()
                                 .HasMaxLength(500)
                                 .HasColumnType("nvarchar(500)")
                                 .HasColumnName("MetaTitle");
 
                             b1.Property<string>("Schema")
-                                .IsRequired()
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("Schema");
 
@@ -563,34 +556,28 @@ namespace Shop.Infrastructure.Migrations
                                 .HasColumnType("bigint");
 
                             b1.Property<string>("Canonical")
-                                .IsRequired()
                                 .HasMaxLength(500)
                                 .HasColumnType("nvarchar(500)")
                                 .HasColumnName("Canonical");
 
-                            b1.Property<string>("IndexPage")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                            b1.Property<bool?>("IndexPage")
+                                .HasColumnType("bit")
                                 .HasColumnName("IndexPage");
 
-                            b1.Property<string>("MateKeyWords")
-                                .IsRequired()
+                            b1.Property<string>("MetaDescription")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("MetaKeyWords")
                                 .HasMaxLength(500)
                                 .HasColumnType("nvarchar(500)")
                                 .HasColumnName("MetaKeyWords");
 
-                            b1.Property<string>("MetaDescription")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
                             b1.Property<string>("MetaTitle")
-                                .IsRequired()
                                 .HasMaxLength(500)
                                 .HasColumnType("nvarchar(500)")
                                 .HasColumnName("MetaTitle");
 
                             b1.Property<string>("Schema")
-                                .IsRequired()
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("Schema");
 
@@ -805,7 +792,7 @@ namespace Shop.Infrastructure.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
 
-                            b1.OwnsOne("Common.Domain.ValueObjects.PhoneNumber", "PhoneNumber", b2 =>
+                            b1.OwnsOne("Common.Domain.ValueObjects.PhoneNumber", "Phone", b2 =>
                                 {
                                     b2.Property<long>("UserAddressId")
                                         .HasColumnType("bigint");
@@ -824,7 +811,7 @@ namespace Shop.Infrastructure.Migrations
                                         .HasForeignKey("UserAddressId");
                                 });
 
-                            b1.Navigation("PhoneNumber")
+                            b1.Navigation("Phone")
                                 .IsRequired();
                         });
 

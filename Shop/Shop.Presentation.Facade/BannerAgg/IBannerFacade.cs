@@ -9,7 +9,7 @@ namespace Shop.Presentation.Facade.BannerAgg
     {
         Task<OperationResult>Create(CreateBannerCommand command);
         Task<OperationResult> Edit(EditBannerCommand command);
-
+        Task<OperationResult> Delete(long BannerId);
 
         Task<BannerDto> GetBannerById(long Id);
         Task<List<BannerDto>> GetAllBanner();

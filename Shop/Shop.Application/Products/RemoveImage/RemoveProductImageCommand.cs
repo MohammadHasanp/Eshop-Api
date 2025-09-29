@@ -10,7 +10,7 @@ namespace Shop.Application.Products.RemoveImage
     public class RemoveProductImageCommand:IBaseCommand
     {
         public long productId { get; private set; }
-        public long ImageId { get; set; }
+        public long ImageId { get; private set; }
 
         public RemoveProductImageCommand(long productId, long imageId)
         {

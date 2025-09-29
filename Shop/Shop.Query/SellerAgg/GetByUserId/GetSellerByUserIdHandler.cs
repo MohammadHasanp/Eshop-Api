@@ -17,6 +17,9 @@ namespace Shop.Query.SellerAgg.GetByUserId
         public async Task<SellerDto?> Handle(GetSellerByUserIdQuery request, CancellationToken cancellationToken)
         {
             var seller = await _context.Sellers.FirstOrDefaultAsync(s=>s.UserId == request.UserId,cancellationToken);
+            if (seller == null)
+                return null;
+
             return seller.Map();
         }
     }

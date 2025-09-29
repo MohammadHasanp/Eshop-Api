@@ -4,6 +4,7 @@ using Shop.Application.Sellers.AddInventory;
 using Shop.Application.Sellers.EditInventory;
 using Shop.Query.SellerAgg.DTOs;
 using Shop.Query.SellerAgg.Inventory.GetById;
+using Shop.Query.SellerAgg.Inventory.GetByProductId;
 using Shop.Query.SellerAgg.Inventory.GetList;
 
 namespace Shop.Presentation.Facade.SellerAgg.Inventory
@@ -25,14 +26,19 @@ namespace Shop.Presentation.Facade.SellerAgg.Inventory
             return await _mediator.Send(command);
         }
 
-        public Task<List<SellerInventoryDto>> GetAll(long SellerId)
+        public async Task<List<SellerInventoryDto>> GetAll(long sellerId)
         {
-            return _mediator.Send(new GetAllSellerInventoryBySellerIdQuery(SellerId));
+            return await _mediator.Send(new GetAllSellerInventoryBySellerIdQuery(sellerId));
         }
 
-        public async Task<SellerInventoryDto?> GetById(long InventoriId)
+        public  async Task<SellerInventoryDto?> GetById(long InventoriId)
         {
             return await _mediator.Send(new GetSellerInventoryByIdQuery(InventoriId));
+        }
+
+        public async Task<List<SellerInventoryDto>> GetInventoryByProductId(long productId)
+        {
+            return await _mediator.Send(new GetInventoryByProductIdQuery(productId));
         }
     }
 }

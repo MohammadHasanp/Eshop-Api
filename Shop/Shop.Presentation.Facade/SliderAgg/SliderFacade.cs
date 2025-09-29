@@ -1,6 +1,7 @@
 ﻿using Common.Application;
 using MediatR;
 using Shop.Application.SiteEntities.Sliders.Create;
+using Shop.Application.SiteEntities.Sliders.Delete;
 using Shop.Application.SiteEntities.Sliders.Edit;
 using Shop.Query.SliderAgg.DTOs;
 using Shop.Query.SliderAgg.GetById;
@@ -20,6 +21,12 @@ namespace Shop.Presentation.Facade.SliderAgg
         {
             return await _mediator.Send(command);
         }
+
+        public Task<OperationResult> Delete(long SliderId)
+        {
+            return _mediator.Send(new DeleteSliderCommand(SliderId));
+        }
+
         public async Task<OperationResult> Edit(EditSliderCommand command)
         {
             return await _mediator.Send(command);

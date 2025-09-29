@@ -1,8 +1,7 @@
-﻿
-
-using Common.Application;
+﻿using Common.Application;
 using MediatR;
 using Shop.Application.Roles.Create;
+using Shop.Application.Roles.Delete;
 using Shop.Application.Roles.Edit;
 using Shop.Query.RoleAgg.DTOs;
 using Shop.Query.RoleAgg.GetById;
@@ -20,6 +19,11 @@ namespace Shop.Presentation.Facade.RoleAgg
         public async Task<OperationResult> Create(CreateRoleCommand command)
         {
             return await _mediator.Send(command);
+        }
+
+        public Task<OperationResult> Delete(long RoleId)
+        {
+            return _mediator.Send(new DeleteRoleCommand(RoleId));
         }
 
         public async Task<OperationResult> Edit(EditRoleCommand command)

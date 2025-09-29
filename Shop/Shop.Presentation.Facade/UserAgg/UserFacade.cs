@@ -1,13 +1,16 @@
 ﻿using Common.Application;
 using Common.Application.SecurityUtil;
 using MediatR;
+using Microsoft.Extensions.Caching.Distributed;
 using Shop.Application.Users.AddToken;
+using Shop.Application.Users.AddUserRole;
 using Shop.Application.Users.ChangePassword;
 using Shop.Application.Users.ChargeWallet;
 using Shop.Application.Users.Create;
 using Shop.Application.Users.Edit;
 using Shop.Application.Users.Register;
 using Shop.Application.Users.RemoveToken;
+using Shop.Application.Users.SetActive;
 using Shop.Query.UserAgg.DTOs;
 using Shop.Query.UserAgg.GetByEmail;
 using Shop.Query.UserAgg.GetByFilter;
@@ -21,10 +24,12 @@ namespace Shop.Presentation.Facade.UserAgg
 {
     internal class UserFacade : IUserFacade
     {
+        private IDistributedCache _distributedCache;
         private readonly IMediator _mediator;
-        public UserFacade(IMediator mediator)
+        public UserFacade(IMediator mediator, IDistributedCache distributeCach)
         {
             _mediator = mediator;
+            _distributedCache = distributeCach;
         }
         public async Task<OperationResult> ChargeWallet(ChargeUserWalletCommand command)
         {
@@ -77,7 +82,14 @@ namespace Shop.Presentation.Facade.UserAgg
 
         public async Task<OperationResult<string>> RemoveToken(RemoveUserTokenCommand command)
         {
-            return await _mediator.Send(command);
+            var result = await _mediator.Send(command);
+
+            if (result.Status != OperationResultStatus.Success)
+                return OperationResult<string>.Error();
+
+            await _distributedCache.RemoveAsync(CacheKeys.UserToken(result.Data));
+            return OperationResult<string>.Success(result.Data);
+
         }
 
         public async Task<UserTokenDto?> GetUserTokenByRefreshToken(string refreshToken)
@@ -92,9 +104,19 @@ namespace Shop.Presentation.Facade.UserAgg
             return await _mediator.Send(new GetUserTokenByJwtTokenQuery(hashToken));
         }
 
-        public Task<OperationResult> ChangePassword(ChangeUserPasswordCommand command)
+        public async Task<OperationResult> ChangePassword(ChangeUserPasswordCommand command)
         {
-            return _mediator.Send(command);
+            return await _mediator.Send(command);
+        }
+
+        public async Task<OperationResult> SetActive(SetActiveUserCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        public async Task<OperationResult> AddUserRole(AddUserRoleCommand command)
+        {
+            return await _mediator.Send(command);
         }
     }
 }

@@ -36,9 +36,9 @@ namespace Shop.Presentation.Facade.SellerAgg
             return await _mediator.Send(new GetSellerByFilterQuery(@params));
         }
 
-        public async Task<SellerDto?> GetSellerById(long Id)
+        public async Task<SellerDto?> GetSellerById(long userId)
         {
-            return await _mediator.Send(new GetSellerByIdQuery(Id));
+            return await _mediator.Send(new GetSellerByIdQuery(userId));
         }
     }
 }

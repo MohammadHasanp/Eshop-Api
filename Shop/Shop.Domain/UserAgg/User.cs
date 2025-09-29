@@ -49,7 +49,7 @@ namespace Shop.Domain.UserAgg
             Addresses = new List<UserAddress>();
             Tokens = new List<UserToken>();
             AvatarName = "avatar.png";
-            IsActive = false;
+            IsActive = true;
         }
         //Edit User
         public void Edit(string userName, string fullName, string email, string phoneNumber, Gender gender
@@ -73,7 +73,7 @@ namespace Shop.Domain.UserAgg
         public static User RegisterUser(string password, string phoneNumber
             , IUserDomainService domainUserService)
         {
-            return new User("", "", password,"ttew1sdkt@gmail.com", phoneNumber, Gender.None, domainUserService);
+            return new User("", "", password,"ttew1dsdkt@gmail.com", phoneNumber, Gender.None, domainUserService);
         }
         //AddAsync Address user
         public void AddAddress(UserAddress Address)
@@ -152,6 +152,10 @@ namespace Shop.Domain.UserAgg
             NullOrEmptyDomainDataException.CheckString((newPassword,nameof(newPassword)));
             Password = newPassword;
         }
+        public void SetActive(bool isActive)
+        {
+            IsActive = isActive;
+        }
 
         //Validation User
         public void Guard(string phoneNumber, string email, IUserDomainService domainUserService)
@@ -172,7 +176,5 @@ namespace Shop.Domain.UserAgg
                 if (domainUserService.IsEmailExist(email))
                     throw new InvalidDomainDataException("ایمیل تکراری است");
         }
-
-    
     }
 }

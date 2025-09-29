@@ -13,8 +13,7 @@ namespace Shop.Infrastructure.Persistent.Ef.CategoryAgg
             builder.HasIndex(b => b.Slug).IsUnique();
 
             builder.Property(b => b.Slug)
-                .IsRequired()
-                .IsUnicode(false);
+                .IsRequired();
 
             builder.Property(b => b.Title)
                 .IsRequired();
@@ -34,7 +33,7 @@ namespace Shop.Infrastructure.Persistent.Ef.CategoryAgg
                     .HasMaxLength(500)
                     .HasColumnName("MetaTitle");
 
-                config.Property(b => b.MateKeyWords)
+                config.Property(b => b.MetaKeyWords)
                     .HasMaxLength(500)
                     .HasColumnName("MetaKeyWords");
 

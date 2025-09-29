@@ -29,6 +29,7 @@ namespace Shop.Query.UserAgg.DTOs
         public string PhoneNumber { get; set; }
         public string? Email { get; set; }
         public string AvatarName { get; set; }
+        public bool IsActive { get; set; }
         public Gender Gender { get; set; }
     }
 

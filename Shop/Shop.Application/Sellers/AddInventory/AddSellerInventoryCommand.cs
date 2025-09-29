@@ -13,10 +13,10 @@ namespace Shop.Application.Sellers.AddInventory
         public long ProductId { get; private set; }
         public int Price { get; private set; }
         public int Count { get; private set; }
-        public int? DiscountPercentage { get; private set; }
+        public int DiscountPercentage { get; private set; }
 
 
-        public AddSellerInventoryCommand(long sellerId,long productId, int price, int count, int? discountPercentage)
+        public AddSellerInventoryCommand(long sellerId,long productId, int price, int count, int discountPercentage)
         {
             SellerId = sellerId;
             ProductId = productId;

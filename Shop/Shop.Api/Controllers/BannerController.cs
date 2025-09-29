@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.Infrastructure.Security;
+using Shop.Api.ViewModel.Banners;
 using Shop.Application.SiteEntities.Banners.Create;
 using Shop.Application.SiteEntities.Banners.Edit;
 using Shop.Domain.RoleAgg.Enums;
@@ -11,7 +12,7 @@ using Shop.Query.BannerAgg.DTOs;
 namespace Shop.Api.Controllers
 
 {
-    [PermissionChecker(Permission.CRUD_Banner)]
+    //[PermissionChecker(Permission.CRUD_Banner)]
     public class BannerController : ApiController
     {
         private readonly IBannerFacade _bannerFacade;
@@ -33,15 +34,23 @@ namespace Shop.Api.Controllers
             return QueryResult(result);
         }
         [HttpPost]
-        public async Task<ApiResult> CreateBanner(CreateBannerCommand command)
+        public async Task<ApiResult> CreateBanner(CreateBannerViewModel viewModel)
         {
-            var result = await _bannerFacade.Create(command);
+            var model = new CreateBannerCommand(viewModel.Link,viewModel.ImageFile,viewModel.Position);
+            var result = await _bannerFacade.Create(model);
             return CommandResult(result);
         }
         [HttpPut]
-        public async Task<ApiResult> EditBanner(EditBannerCommand command)
+        public async Task<ApiResult> EditBanner(EditBannerViewModel viewModel)
         {
-            var result = await _bannerFacade.Edit(command);
+            var model = new EditBannerCommand(viewModel.Link,viewModel.ImageFile,viewModel.Position,viewModel.BannerId);
+            var result = await _bannerFacade.Edit(model);
+            return CommandResult(result);
+        }
+        [HttpDelete("{BannerId}")]
+        public async Task<ApiResult> DeleteBanner(long BannerId)
+        {
+            var result = await _bannerFacade.Delete(BannerId);
             return CommandResult(result);
         }
     }

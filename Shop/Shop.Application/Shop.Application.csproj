@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Sellers\DeleteInventory\" />
-    <Folder Include="SiteEntities\Banners\Delete\" />
-    <Folder Include="SiteEntities\Sliders\Delete\" />
   </ItemGroup>
 
   <ItemGroup>

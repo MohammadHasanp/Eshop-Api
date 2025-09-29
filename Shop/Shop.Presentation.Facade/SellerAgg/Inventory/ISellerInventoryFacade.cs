@@ -11,5 +11,6 @@ namespace Shop.Presentation.Facade.SellerAgg.Inventory
         Task<OperationResult> Edit(EditSellerInaventoryCommand command);
         Task<SellerInventoryDto> GetById(long InventoriId);
         Task<List<SellerInventoryDto>> GetAll(long SellerId);
+        Task<List<SellerInventoryDto>> GetInventoryByProductId(long productId);
     }
 }

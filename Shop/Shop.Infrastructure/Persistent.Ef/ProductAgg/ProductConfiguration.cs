@@ -31,6 +31,8 @@ namespace Shop.Infrastructure.Persistent.Ef.ProductAgg
                 .IsRequired()
                 .HasMaxLength(100);
 
+            
+
             builder.OwnsOne(b => b.SeoData, option =>
             {
                 option.Property(p => p.MetaTitle)
@@ -41,7 +43,7 @@ namespace Shop.Infrastructure.Persistent.Ef.ProductAgg
                     .HasMaxLength(500)
                     .HasColumnName("MetaTitle");
 
-                option.Property(b => b.MateKeyWords)
+                option.Property(b => b.MetaKeyWords)
                     .HasMaxLength(500)
                     .HasColumnName("MetaKeyWords");
 

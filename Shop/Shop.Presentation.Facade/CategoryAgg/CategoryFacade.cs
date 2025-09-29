@@ -48,7 +48,7 @@ namespace Shop.Presentation.Facade.CategoryAgg
             return await _mediator.Send(new GetCategoryByIdQuery(Id));
         }
 
-        public async Task<List<SubCategoryDto>> GetCategoryByParentId(int parentId)
+        public async Task<List<SubCategoryDto>> GetCategoryByParentId(long parentId)
         {
             return await _mediator.Send(new GetCategoryByParentIdQuery(parentId));
         }

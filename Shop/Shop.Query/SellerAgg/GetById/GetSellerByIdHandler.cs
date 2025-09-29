@@ -15,7 +15,7 @@ namespace Shop.Query.SellerAgg.GetById
         }
         public async Task<SellerDto?> Handle(GetSellerByIdQuery request, CancellationToken cancellationToken)
         {
-            var seller = await _context.Sellers.FirstOrDefaultAsync(s=>s.Id == request.SellerId);
+            var seller = await _context.Sellers.FirstOrDefaultAsync(s=>s.UserId == request.UserId);
 
             if (seller == null)
                 return null;

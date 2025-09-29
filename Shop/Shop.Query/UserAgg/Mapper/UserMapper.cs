@@ -82,6 +82,7 @@ namespace Shop.Query.UserAgg.Mapper
                 CreationDate = user.CreationDate,
                 Email = user.Email,
                 Gender = user.Gender,
+                IsActive = user.IsActive,
                 PhoneNumber = user.PhoneNumber
             };
         }

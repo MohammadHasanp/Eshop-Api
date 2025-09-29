@@ -1,4 +1,4 @@
-﻿using Common.AspNetCore.ClaimUtils;
+﻿using Common.AspNetCore.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;

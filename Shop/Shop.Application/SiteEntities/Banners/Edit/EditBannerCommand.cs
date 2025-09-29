@@ -16,8 +16,9 @@ namespace Shop.Application.SiteEntities.Banners.Edit
         public IFormFile? ImageFile{ get; private set; }
         public BannerPosition Position { get; private set; }
 
-        public EditBannerCommand(string link, IFormFile? iMageFile, BannerPosition position)
+        public EditBannerCommand(string link, IFormFile? iMageFile, BannerPosition position,long bannerId)
         {
+            BannerId = bannerId;
             Link = link;
             ImageFile = iMageFile;
             Position = position;

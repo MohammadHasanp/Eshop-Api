@@ -35,6 +35,7 @@ namespace Shop.Domain.SellerAgg
             NationalCode = nationalCode;
             SellerInventories = new List<SellerInventory>();
             LastUpdate = DateTime.Now;
+            Status = SellerStatus.New;
             if (domainService.IsUserIdExist(userId) || domainService.IsNationalCodeExist(nationalCode))
                 throw new InvalidDomainDataException("اطلاعات نامعتبر است");
 

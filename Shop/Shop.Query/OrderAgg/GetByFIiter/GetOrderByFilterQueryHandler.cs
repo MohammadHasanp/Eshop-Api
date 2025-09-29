@@ -34,9 +34,10 @@ namespace Shop.Query.OrderAgg.GetByFIiter
                 result = result.Where(o => o.Status == @params.Status);
             }
             var skip = (@params.PageId-1)* @params.Take;
+            var orders = await result.Skip(skip).Take(@params.Take).ToListAsync(cancellationToken);
             var model = new OrderFilterResult()
             {
-                Datas = await result.Skip(skip).Take(@params.Take).Select(order => order.MapFilterDate(_context)).ToListAsync(cancellationToken),
+                Datas =orders.Select(order => order.MapFilterDate(_context)).ToList(),
                 FilterParams = @params
             };
             return model;

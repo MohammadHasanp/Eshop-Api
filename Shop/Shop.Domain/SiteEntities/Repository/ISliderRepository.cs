@@ -9,5 +9,6 @@ namespace Shop.Domain.SiteEntities.Repository
 {
     public interface ISliderRepository:IBaseRepository<Slider>
     {
+        public void Delete(Slider slider);
     }
 }

@@ -3,5 +3,5 @@ using Shop.Query.CategoryAgg.DTOs;
 
 namespace Shop.Query.CategoryAgg.GetByParentId
 {
-    public record GetCategoryByParentIdQuery(int ParentId):IQuery<List<SubCategoryDto>>;
+    public record GetCategoryByParentIdQuery(long ParentId):IQuery<List<SubCategoryDto>>;
 }
