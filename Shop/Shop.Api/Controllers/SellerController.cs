@@ -95,7 +95,7 @@ namespace Shop.Api.Controllers
         [HttpGet("Inventory")]
         public async Task<ApiResult<List<SellerInventoryDto>>> GetAllInventory()
         {
-            var seller = await _sellerFacade.GetSellerById(4);
+            var seller = await _sellerFacade.GetSellerById(User.GetUserId());
             if (seller == null)
                 return QueryResult(new List<SellerInventoryDto>());
 

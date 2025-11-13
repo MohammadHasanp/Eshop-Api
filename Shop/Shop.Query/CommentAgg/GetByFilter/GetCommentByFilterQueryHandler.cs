@@ -17,6 +17,10 @@ namespace Shop.Query.CommentAgg.GetByFilter
         {
             var @params = request.FilterParams;
             var result = _context.Comments.OrderByDescending(c => c.CreationDate).AsQueryable();
+
+            if (@params.ProductId != null)
+                result = result.Where(c=>c.ProductId == @params.ProductId);
+
             if(@params.UserId != null)
             {
                 result = result.Where(c=>c.UserId==@params.UserId);

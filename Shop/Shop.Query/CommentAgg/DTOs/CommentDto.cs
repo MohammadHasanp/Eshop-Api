@@ -21,6 +21,7 @@ namespace Shop.Query.CommentAgg.DTOs
     public class CommentFilterParams:BaseFilterParam
     {
         public long? UserId { get; set; }
+        public long? ProductId { get; set; }    
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate{ get; set; }
         public CommentStatus? Status { get; set; }

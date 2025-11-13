@@ -4,6 +4,7 @@ using Shop.Application.Orders.AddItem;
 using Shop.Application.Orders.ChackoutOrderItem;
 using Shop.Application.Orders.DecreaseItemCount;
 using Shop.Application.Orders.DeleteItem;
+using Shop.Application.Orders.Finally;
 using Shop.Application.Orders.IncreaseItemCount;
 using Shop.Application.Users.Register;
 using Shop.Query.OrderAgg.DTOs;
@@ -22,6 +23,7 @@ namespace Shop.Presentation.Facade.OrderAgg
         Task<OperationResult> IncreaseItemCount(IncreaseOrderItemCountCommand command);
         Task<OperationResult> Delete(long UserId, long ItemId);
         Task<OperationResult> Ordercheckout(CheckoutOrderItemCommand command);
+        Task<OperationResult> OrderFinally(OrderFinallyCommand command);
 
         Task<OrderDto?> GetOrderById(long Id);
         Task<OrderFilterResult> GetOrderByFilter(OrderFilterParams @params);

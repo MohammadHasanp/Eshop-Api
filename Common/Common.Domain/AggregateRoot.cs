@@ -11,7 +11,7 @@ namespace Common.Domain
     {
         private readonly List<BaseDomainEvent> _baseDomainEvents = new List<BaseDomainEvent>();
         [NotMapped]
-        public List<BaseDomainEvent> baseDomains => _baseDomainEvents;
+        public List<BaseDomainEvent> BaseDomains => _baseDomainEvents;
 
         public void AddDomainEvent(BaseDomainEvent baseDomain)
         {

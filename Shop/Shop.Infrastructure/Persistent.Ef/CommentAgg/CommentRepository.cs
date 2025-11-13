@@ -1,4 +1,5 @@
-﻿using Shop.Domain.CommentAgg;
+﻿using Microsoft.EntityFrameworkCore;
+using Shop.Domain.CommentAgg;
 using Shop.Domain.CommentAgg.Repository;
 using Shop.Infrastructure._Utilities;
 using Shop.Infrastructure.Persistent.Ef._Context;
@@ -9,6 +10,11 @@ namespace Shop.Infrastructure.Persistent.Ef.CommentAgg
     {
         public CommentRepository(ShopContext context) : base(context)
         {
+        }
+
+        public void Delete(Comment comment)
+        {
+            _context.Entry(comment).State = EntityState.Deleted;
         }
     }
 }

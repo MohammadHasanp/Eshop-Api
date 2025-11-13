@@ -9,5 +9,6 @@ namespace Shop.Domain.CommentAgg.Repository
 {
     public interface ICommentRepository:IBaseRepository<Comment>
     {
+        void Delete(Comment comment);
     }
 }

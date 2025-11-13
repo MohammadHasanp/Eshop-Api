@@ -44,20 +44,20 @@ namespace Shop.Domain.OrderAgg
         }
         public void IncreaseCount(int count)
         {
-            Count =+ count;
+            Count =Count + count;
         }
         public void DecreaseCount(int count)
         {
             if (Count == 1 || Count - count <= 0)
                 return;
 
-            Count =- count;
+            Count =Count - count;
         }
         //Validation OrderItem 
         public void Guard(int price, int count)
         {
             if (price != 0)
-                if (Price < 1)
+                if (price< 1)
                     throw new InvalidDomainDataException("Price InValid");
 
             if (count != 0)

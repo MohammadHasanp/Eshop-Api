@@ -35,7 +35,6 @@ namespace Shop.Domain.OrderAgg
         //
         public string NationalCode { get; private set; }
         //Relation With Order
-        public Order Order { get; set; }
     }
 }
    

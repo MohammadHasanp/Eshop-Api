@@ -1,12 +1,8 @@
 ﻿using Common.Domain;
 using Common.Domain.Exceptions;
 using Shop.Domain.OrderAgg.Enums;
+using Shop.Domain.OrderAgg.Events;
 using Shop.Domain.OrderAgg.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Common.Domain.Exceptions.BaseDomainExceotion;
 
 namespace Shop.Domain.OrderAgg
@@ -35,7 +31,7 @@ namespace Shop.Domain.OrderAgg
         //Relation With OrderItem
         public List<OrderItem> Items { get; private set; }
         //Relation with OrderAddress
-        public OrderAddress Address { get; private set; }
+        public OrderAddress? Address { get; private set; }
 
         //Sum Total Price Order
         public int TotalPrice
@@ -105,6 +101,14 @@ namespace Shop.Domain.OrderAgg
 
             item.DecreaseCount(newCount);
         }
+        //
+        public void Finally()
+        {
+            Status = OrderStatus.Finally;
+            LastUpdate = DateTime.Now;
+            AddDomainEvent(new OrderFinalliez(Id));
+        }
+
         //Change Status OrderItem
         public void ChangeStatus(OrderStatus status)
         {
@@ -112,9 +116,11 @@ namespace Shop.Domain.OrderAgg
             LastUpdate = DateTime.Now;
         }
         //Fainally Order
-        public void Checkout(OrderAddress address)
+        public void Checkout(OrderAddress address, OrderShippingMethod shippingMethod)
         {
+            Guard();
             Address = address;
+            ShippingMethod = shippingMethod;
         }
         public void Guard()
         {

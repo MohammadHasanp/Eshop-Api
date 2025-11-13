@@ -2,6 +2,7 @@
 using MediatR;
 using Shop.Application.Comments.ChangeStatus;
 using Shop.Application.Comments.Create;
+using Shop.Application.Comments.Delete;
 using Shop.Application.Comments.Edit;
 using Shop.Query.CommentAgg.DTOs;
 using Shop.Query.CommentAgg.GetByFilter;
@@ -24,6 +25,11 @@ namespace Shop.Presentation.Facade.CommentAgg
         public async Task<OperationResult> Create(CreateCommentCommand command)
         {
             return await _mediator.Send(command);
+        }
+
+        public async Task<OperationResult> DeleteComment(long commentId)
+        {
+            return await _mediator.Send(new DeleteCommentCommand(commentId));
         }
 
         public async Task<OperationResult> Edit(EditCommentCommand command)
