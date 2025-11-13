@@ -7,6 +7,7 @@ using Shop.Presentation.Facade.ProductAgg;
 using Shop.Presentation.Facade.RoleAgg;
 using Shop.Presentation.Facade.SellerAgg;
 using Shop.Presentation.Facade.SellerAgg.Inventory;
+using Shop.Presentation.Facade.ShippingMethodAgg;
 using Shop.Presentation.Facade.SliderAgg;
 using Shop.Presentation.Facade.UserAgg;
 using Shop.Presentation.Facade.UserAgg.UserAddress;
@@ -28,6 +29,7 @@ namespace Shop.Presentation.Facade
             services.AddScoped<IUserFacade, UserFacade>();
             services.AddScoped<ISellerInventoryFacade, SellerInventoryFacade>();
             services.AddScoped<IUserAddressFacade, UserAddressFacade>();
+            services.AddTransient<IShippingMethodFacade,ShippingMethodFacade>();
         }
     }
 }

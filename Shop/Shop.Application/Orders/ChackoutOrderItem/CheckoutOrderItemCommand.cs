@@ -5,7 +5,7 @@ namespace Shop.Application.Orders.ChackoutOrderItem
 {
     public class CheckoutOrderItemCommand : IBaseCommand
     {
-        public CheckoutOrderItemCommand(long userId,string shire, string city, string postalCode, string postalAddress, string phoneNumber, string name, string family, string nationalCode)
+        public CheckoutOrderItemCommand(long userId,string shire, string city, string postalCode, string postalAddress, string phoneNumber, string name, string family, string nationalCode, long shippingMethodId)
         {
             UserId = userId;
             this.Shire = shire;
@@ -16,6 +16,7 @@ namespace Shop.Application.Orders.ChackoutOrderItem
             this.Name = name;
             this.Family = family;
             this.NationalCode = nationalCode;
+            ShippingMethodId = shippingMethodId;
         }
         public long UserId { get;set; }
         public string Shire { get; private set; }
@@ -26,5 +27,6 @@ namespace Shop.Application.Orders.ChackoutOrderItem
         public string Name { get; private set; }
         public string Family { get; private set; }
         public string NationalCode { get; private set; }
+        public long ShippingMethodId { get;private set; }
     }
 }

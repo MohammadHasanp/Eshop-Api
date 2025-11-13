@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
 
 namespace Shop.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class OrderController : ApiController
     {
         private readonly IOrderItemFacade _orderItemFacade;
@@ -66,7 +66,7 @@ namespace Shop.Api.Controllers
             var result = await _orderItemFacade.DecreaseItemCount(command);
             return CommandResult(result);
         }
-        [HttpDelete("OrderItem")]
+        [HttpDelete("OrderItem/{itemId}")]
         public async Task<ApiResult> DeleteOrderItem(long itemId)
         {
             var result = await _orderItemFacade.Delete(User.GetUserId(),itemId);

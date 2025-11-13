@@ -25,6 +25,6 @@ namespace Shop.Presentation.Facade.ProductAgg
     public class SingleProductDto()
     {
         public ProductDto Product { get; set; }
-        public List<SellerInventoryDto> Inventories{ get; set; }
+        public List<SellerInventoryDto> Inventories { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace Shop.Query.SellerAgg.Inventory.GetList
         public async Task<List<SellerInventoryDto>> Handle(GetAllSellerInventoryBySellerIdQuery request, CancellationToken cancellationToken)
         {
             using var connection = _context.CreateConnection();
+
             var sql = @$"SELECT i.Id, SellerId , ProductId ,Count , Price,i.CreationDate , DiscountPercentage , s.ShopName,
                          p.Title as ProductTitle,p.ImageName as ProductImage from {_context.Inventories}
                          i inner join {_context.Sellers} s on i.SellerId = s.Id

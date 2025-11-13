@@ -1,4 +1,5 @@
-﻿using Shop.Api.Infrastructure.JwtUtil;
+﻿using Shop.Api.Infrastructure.GatEways.Zibal;
+using Shop.Api.Infrastructure.JwtUtil;
 using Shop.Api.Infrastructure.Security;
 
 namespace Shop.Api.Infrastructure
@@ -7,6 +8,7 @@ namespace Shop.Api.Infrastructure
     {
         public static void RegisterApiDependency(IServiceCollection services)
         {
+            services.AddHttpClient<IZibalService,ZibalService>();
             services.AddTransient<CustomJwtValidation>();
             services.AddAutoMapper(cfg =>
             {

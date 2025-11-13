@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 var service = builder.Services;
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+Console.WriteLine($"Connection String: {connectionString}");
 
 ProjectBootstrapper.RegisterShopDependency(service, connectionString);
 DependencyRegister.RegisterApiDependency(service);

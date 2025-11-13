@@ -13,7 +13,7 @@ namespace Shop.Api.Infrastructure.JwtUtil
         }
         public async Task Validate(TokenValidatedContext context)
         {
-            var userId = context.Principal.GetUserId();
+            var userId = context.Principal!.GetUserId();
             var jwtToken = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             var token =await _userFacade.GetUserTokenByJwtTokenQuery(jwtToken);
             if (token == null)

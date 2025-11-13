@@ -29,7 +29,7 @@ namespace Shop.Api.Controllers
             return QueryResult(result);
         }
         [AllowAnonymous]
-        [HttpGet("ShopController")]
+        [HttpGet("ForShop")]
         public async Task<ApiResult<ProductShopResult>> GetProductForShopFilter([FromQuery] ProductShopFilterParams @params)
         {
             var result = await _productFacade.GetForShop(@params);
@@ -83,7 +83,7 @@ namespace Shop.Api.Controllers
             var result = await _productFacade.AddImage(model);
             return CommandResult(result);
         }
-        [HttpGet("Single{slug}")]
+        [HttpGet("Single/{slug}")]
         public async Task<ApiResult<SingleProductDto>> GetSingleProduct(string slug)
         {
             var result = await _productFacade.GetProductBySlugForSinglePage(slug);

@@ -1,11 +1,8 @@
 ﻿using Common.AspNetCore;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Shop.Api.Infrastructure.Security;
 using Shop.Api.ViewModel.Role;
 using Shop.Application.Roles.Create;
 using Shop.Application.Roles.Edit;
-using Shop.Domain.RoleAgg.Enums;
 using Shop.Presentation.Facade.RoleAgg;
 using Shop.Query.RoleAgg.DTOs;
 

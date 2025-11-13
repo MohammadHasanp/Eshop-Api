@@ -87,7 +87,7 @@ namespace Shop.Presentation.Facade.UserAgg
             if (result.Status != OperationResultStatus.Success)
                 return OperationResult<string>.Error();
 
-            await _distributedCache.RemoveAsync(CacheKeys.UserToken(result.Data));
+            //await _distributedCache.RemoveAsync(CacheKeys.UserToken(result.Data));
             return OperationResult<string>.Success(result.Data);
 
         }

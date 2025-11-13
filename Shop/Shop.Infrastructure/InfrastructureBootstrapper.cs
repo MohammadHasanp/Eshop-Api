@@ -22,6 +22,7 @@ using Shop.Infrastructure.Persistent.Ef.OrderAgg;
 using Shop.Infrastructure.Persistent.Ef.ProductAgg;
 using Shop.Infrastructure.Persistent.Ef.RoleAgg;
 using Shop.Infrastructure.Persistent.Ef.SellerAgg;
+using Shop.Infrastructure.Persistent.Ef.ShippingMethod;
 using Shop.Infrastructure.Persistent.Ef.SliderAgg;
 using Shop.Infrastructure.Persistent.Ef.UserAgg;
 
@@ -40,6 +41,7 @@ namespace Shop.Infrastructure
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<ICommentRepository, CommentRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IShippingMethodRepository,ShippingMethodRepository>();
 
             services.AddSingleton<DapperContext>(_ => new DapperContext(connectionString));
 
