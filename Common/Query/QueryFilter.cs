@@ -1,4 +1,4 @@
-﻿using Common.Application;
+﻿ using Common.Application;
 using Common.Query.Filter;
 using System;
 using System.Collections.Generic;

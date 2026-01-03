@@ -1,4 +1,4 @@
-﻿using Common.Query;
+﻿ using Common.Query;
 using Shop.Query.CommentAgg.DTOs;
 
 namespace Shop.Query.CommentAgg.GetByFilter

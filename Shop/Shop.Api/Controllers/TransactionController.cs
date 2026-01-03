@@ -29,7 +29,7 @@ namespace Shop.Api.Controllers
 
 
             var url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
-            var result = await _zibalService.StartPay(new ZibalPaymentRequest()
+            var result = await _zibalService.StartPay(new()
             {
                 Amount = order.TotalPrice,
                 CallBackUrl = $"{url}/api/transaction?orderId={order.Id}&errorRedirect={command.ErrorCallBackUrl}&successRedirect={command.SuccessCallBackUrl}",
@@ -43,7 +43,7 @@ namespace Shop.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Verify(long orderId,long trackId,int success,string errorRedirect, string successRedirect)
+        public async Task<IActionResult> Verify(long orderId, long trackId, int success, string errorRedirect, string successRedirect)
         {
             if (success == 0)
                 return Redirect(errorRedirect);
