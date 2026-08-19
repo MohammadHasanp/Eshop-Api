@@ -6,19 +6,15 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Shop.Domain.RoleAgg.Enums;
 using Shop.Presentation.Facade.RoleAgg;
 using Shop.Presentation.Facade.UserAgg;
+using System.Security;
 
 namespace Shop.Api.Infrastructure.Security
 {
-    public class PermissionChecker : AuthorizeAttribute, IAsyncAuthorizationFilter
+    public class PermissionChecker(Permission permission) : AuthorizeAttribute, IAsyncAuthorizationFilter
     {
         private IUserFacade _userFacade;
         private IRoleFacade _roleFacade;
-        private readonly Permission _permission;
 
-        public PermissionChecker(Permission permission)
-        {
-            _permission = permission;
-        }
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
             if (HasAllowAnonymous(context))
@@ -26,7 +22,7 @@ namespace Shop.Api.Infrastructure.Security
 
             _userFacade = context.HttpContext.RequestServices.GetRequiredService<IUserFacade>();
             _roleFacade = context.HttpContext.RequestServices.GetRequiredService<IRoleFacade>();
-            if (context.HttpContext.User.Identity.IsAuthenticated)
+            if (context.HttpContext.User.Identity!.IsAuthenticated)
             {
                 if (await UserHasPermission(context) == false)
                 {
@@ -69,7 +65,7 @@ namespace Shop.Api.Infrastructure.Security
             var roles = await _roleFacade.GetAllRole();
             var userRoles = roles.Where(r => roleIds.Contains(r.Id));
 
-            return userRoles.Any(r => r.Permissions.Contains(_permission));
+            return userRoles.Any(r => r.Permissions.Contains(permission));
         }
     }
 }

@@ -9,10 +9,9 @@ using Shop.Api.Infrastructure.JwtUtil;
 var builder = WebApplication.CreateBuilder(args);
 var service = builder.Services;
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-Console.WriteLine($"Connection String: {connectionString}");
 
-ProjectBootstrapper.RegisterShopDependency(service, connectionString);
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+ProjectBootstrapper.RegisterShopDependency(service, connectionString!);
 DependencyRegister.RegisterApiDependency(service);
 
 service.AddDistributedRedisCache(option =>
@@ -54,12 +53,15 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 app.UseCors("ShopApi");
+
+app.UseApiCustomExceptionHandler();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseApiCustomExceptionHandler();
 app.MapControllers();
 
 app.Run();

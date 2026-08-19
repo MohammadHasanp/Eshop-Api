@@ -11,7 +11,7 @@ namespace Shop.Domain.OrderAgg
 {
     public class OrderItem : BaseEntity
     {
-        //Set OrderItem
+
         public OrderItem(long inventoryId, int count, int price)
         {
             Guard(price, count);

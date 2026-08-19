@@ -61,15 +61,15 @@ namespace Shop.Api.Controllers
         [HttpDelete("Logout")]
         public async Task<ApiResult> Logout()
         {
-            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ","");
+            var token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             var result = await _userFacade.GetUserTokenByJwtTokenQuery(token);
             if (result == null)
                 return CommandResult(OperationResult.NotFound());
 
-           var deletion = await _userFacade.RemoveToken(new RemoveUserTokenCommand(result.UserId, result.Id));
+            var deletion = await _userFacade.RemoveToken(new RemoveUserTokenCommand(result.UserId, result.Id));
 
             if (deletion.Status != OperationResultStatus.Success)
-                   return CommandResult(OperationResult.Error());
+                return CommandResult(OperationResult.Error());
 
             return CommandResult(OperationResult.Success());
         }
@@ -92,7 +92,7 @@ namespace Shop.Api.Controllers
                 return CommandResult(OperationResult<LoginResultDto>.Error("زمان رفرش توکن به پایان رسیده است"));
             }
             var user = await _userFacade.GetUserById(result.UserId);
-            var hashRefreshtoken = await _userFacade.RemoveToken(new RemoveUserTokenCommand(result.UserId, result.Id));
+             await _userFacade.RemoveToken(new RemoveUserTokenCommand(result.UserId, result.Id));
             var loginResult = await AddTokenAndGenerateJwt(user);
             return CommandResult(loginResult);
         }

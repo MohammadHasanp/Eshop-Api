@@ -19,7 +19,7 @@ namespace Shop.Api.Infrastructure.JwtUtil
             new Claim(ClaimTypes.Role,string.Join("-",roles))
             };
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtConfig:SignInKey"]));
-            var credential = new SigningCredentials(secretKey,SecurityAlgorithms.HmacSha256);
+            var credential = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
                 issuer: configuration["JwtConfig:Issuer"],

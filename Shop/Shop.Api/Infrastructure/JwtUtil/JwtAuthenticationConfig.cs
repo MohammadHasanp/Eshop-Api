@@ -28,6 +28,7 @@ namespace Shop.Api.Infrastructure.JwtUtil
                     ValidateIssuerSigningKey = true,
                     ValidateAudience = true,
                 };
+
                 option.SaveToken = true;
                 option.Events = new JwtBearerEvents()
                 {
@@ -38,7 +39,6 @@ namespace Shop.Api.Infrastructure.JwtUtil
                     }
                 };
             });
-
         }
 
     }

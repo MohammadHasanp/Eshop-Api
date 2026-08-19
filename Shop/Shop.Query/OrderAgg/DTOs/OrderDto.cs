@@ -1,4 +1,5 @@
-﻿using Common.Query;
+﻿
+using Common.Query;
 using Shop.Domain.OrderAgg.Enums;
 using Shop.Domain.OrderAgg.ValueObjects;
 using Shop.Domain.OrderAgg;
@@ -60,6 +61,7 @@ namespace Shop.Query.OrderAgg.DTOs
         public string? ShippingType { get; set; }
         public int TotalPrice { get; set; }
         public int TotalItemCount { get; set; }
+        public DateTime? LastUpdate { get; set; }
     }
 
     public class OrderFilterParams : BaseFilterParam
@@ -70,5 +72,5 @@ namespace Shop.Query.OrderAgg.DTOs
         public OrderStatus? Status { get; set; }
     }
 
-    public class OrderFilterResult:BaseFilter<OrderFilterData, OrderFilterParams> { }
+    public class OrderFilterResult : BaseFilter<OrderFilterData, OrderFilterParams> { }
 }

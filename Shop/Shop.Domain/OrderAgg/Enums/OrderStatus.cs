@@ -9,9 +9,10 @@ namespace Shop.Domain.OrderAgg.Enums
     //Type Status
     public enum OrderStatus
     {
-        Pennding,
-        Finally,
-        Shipping,
-        Rejected
+        None = 0,
+        Pennding = 1,
+        Finally = 2,
+        Shipping = 3,
+        Rejected = 4,
     }
 }

@@ -17,7 +17,7 @@ namespace Shop.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.9")
+                .HasAnnotation("ProductVersion", "9.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -274,7 +274,7 @@ namespace Shop.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ShippingMothods");
+                    b.ToTable("ShippingMothods", (string)null);
                 });
 
             modelBuilder.Entity("Shop.Domain.SiteEntities.Slider", b =>
@@ -485,6 +485,27 @@ namespace Shop.Infrastructure.Migrations
                             b1.Navigation("Order");
                         });
 
+                    b.OwnsOne("Shop.Domain.OrderAgg.ValueObjects.OrderDiscount", "Discount", b1 =>
+                        {
+                            b1.Property<long>("OrderId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<int>("DiscountAmount")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("DiscountTitle")
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)");
+
+                            b1.HasKey("OrderId");
+
+                            b1.ToTable("Orders", "order");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+                        });
+
                     b.OwnsMany("Shop.Domain.OrderAgg.OrderItem", "Items", b1 =>
                         {
                             b1.Property<long>("Id")
@@ -515,27 +536,6 @@ namespace Shop.Infrastructure.Migrations
                             b1.HasIndex("OrderId");
 
                             b1.ToTable("Items", "order");
-
-                            b1.WithOwner()
-                                .HasForeignKey("OrderId");
-                        });
-
-                    b.OwnsOne("Shop.Domain.OrderAgg.ValueObjects.OrderDiscount", "Discount", b1 =>
-                        {
-                            b1.Property<long>("OrderId")
-                                .HasColumnType("bigint");
-
-                            b1.Property<int>("DiscountAmount")
-                                .HasColumnType("int");
-
-                            b1.Property<string>("DiscountTitle")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)");
-
-                            b1.HasKey("OrderId");
-
-                            b1.ToTable("Orders", "order");
 
                             b1.WithOwner()
                                 .HasForeignKey("OrderId");
@@ -572,6 +572,36 @@ namespace Shop.Infrastructure.Migrations
 
             modelBuilder.Entity("Shop.Domain.ProductAgg.Product", b =>
                 {
+                    b.OwnsMany("Shop.Domain.ProductAgg.ProductImage", "Images", b1 =>
+                        {
+                            b1.Property<long>("ProductId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<long>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("bigint");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<long>("Id"));
+
+                            b1.Property<DateTime>("CreationDate")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<string>("ImageName")
+                                .IsRequired()
+                                .HasMaxLength(200)
+                                .HasColumnType("nvarchar(200)");
+
+                            b1.Property<int>("Sequence")
+                                .HasColumnType("int");
+
+                            b1.HasKey("ProductId", "Id");
+
+                            b1.ToTable("Images", "product");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProductId");
+                        });
+
                     b.OwnsOne("Common.Domain.ValueObjects.SeoData", "SeoData", b1 =>
                         {
                             b1.Property<long>("ProductId")
@@ -606,36 +636,6 @@ namespace Shop.Infrastructure.Migrations
                             b1.HasKey("ProductId");
 
                             b1.ToTable("Products", "product");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ProductId");
-                        });
-
-                    b.OwnsMany("Shop.Domain.ProductAgg.ProductImage", "Images", b1 =>
-                        {
-                            b1.Property<long>("ProductId")
-                                .HasColumnType("bigint");
-
-                            b1.Property<long>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("bigint");
-
-                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<long>("Id"));
-
-                            b1.Property<DateTime>("CreationDate")
-                                .HasColumnType("datetime2");
-
-                            b1.Property<string>("ImageName")
-                                .IsRequired()
-                                .HasMaxLength(200)
-                                .HasColumnType("nvarchar(200)");
-
-                            b1.Property<int>("Sequence")
-                                .HasColumnType("int");
-
-                            b1.HasKey("ProductId", "Id");
-
-                            b1.ToTable("Images", "product");
 
                             b1.WithOwner()
                                 .HasForeignKey("ProductId");

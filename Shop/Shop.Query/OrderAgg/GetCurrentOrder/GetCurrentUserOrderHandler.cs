@@ -8,11 +8,11 @@ using Shop.Query.OrderAgg.Mapper;
 
 namespace Shop.Query.OrderAgg.GetCurrentOrder
 {
-    public class GetCurrentUserOrderHadler : IQueryHandler<GetCurrentUserOrderQuery, OrderDto>
+    public class GetCurrentUserOrderHandler : IQueryHandler<GetCurrentUserOrderQuery, OrderDto>
     {
         private readonly ShopContext _context;
         private readonly DapperContext _dapperContext;
-        public GetCurrentUserOrderHadler(ShopContext context, DapperContext dapperContext)
+        public GetCurrentUserOrderHandler(ShopContext context, DapperContext dapperContext)
         {
             _context = context;
             _dapperContext = dapperContext;

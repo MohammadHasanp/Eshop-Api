@@ -73,7 +73,7 @@ namespace Shop.Domain.UserAgg
         public static User RegisterUser(string password, string phoneNumber
             , IUserDomainService domainUserService)
         {
-            return new User("", "", password,"ttew1dsdkt@gmail.com", phoneNumber, Gender.None, domainUserService);
+            return new User("", "", password, "ttew1dsdkt@gmail.com", phoneNumber, Gender.None, domainUserService);
         }
         //AddAsync Address user
         public void AddAddress(UserAddress Address)
@@ -105,7 +105,7 @@ namespace Shop.Domain.UserAgg
         }
         public void SetActiveAddress(long addressId)
         {
-            var address = Addresses.FirstOrDefault(a=>a.Id == addressId);
+            var address = Addresses.FirstOrDefault(a => a.Id == addressId);
             if (address == null)
                 throw new NullOrEmptyDomainDataException("ادرس مورد نظر یافت نشد");
 
@@ -144,12 +144,12 @@ namespace Shop.Domain.UserAgg
             if (token == null)
                 throw new InvalidDomainDataException("شناسه توکن نامعتبر است");
 
-            Tokens.Remove(token);
+            this.Tokens.Remove(token);
             return token.HashJwtToken;
         }
         public void ChangePassword(string newPassword)
         {
-            NullOrEmptyDomainDataException.CheckString((newPassword,nameof(newPassword)));
+            NullOrEmptyDomainDataException.CheckString((newPassword, nameof(newPassword)));
             Password = newPassword;
         }
         public void SetActive(bool isActive)

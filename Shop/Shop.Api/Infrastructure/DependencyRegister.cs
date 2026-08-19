@@ -8,7 +8,7 @@ namespace Shop.Api.Infrastructure
     {
         public static void RegisterApiDependency(IServiceCollection services)
         {
-            services.AddHttpClient<IZibalService,ZibalService>();
+            services.AddHttpClient<IZibalService, ZibalService>();
             services.AddTransient<CustomJwtValidation>();
             services.AddAutoMapper(cfg =>
             {

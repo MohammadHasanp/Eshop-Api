@@ -1,4 +1,5 @@
-﻿using Common.Query;
+﻿
+using Common.Query;
 using Microsoft.EntityFrameworkCore;
 using Shop.Infrastructure.Persistent.Dapper;
 using Shop.Infrastructure.Persistent.Ef._Context;

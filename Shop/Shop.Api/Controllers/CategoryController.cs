@@ -51,7 +51,7 @@ namespace Shop.Api.Controllers
 
             var result = await _category.Create(model);
             var url = Url.Action("GetCategoryById", "Category", new { Id = result.Data }, Request.Scheme);
-            return CommandResult(result, HttpStatusCode.Created);
+            return CommandResult(result, HttpStatusCode.Created, url);
         }
         [HttpPost("AddChild")]
         public async Task<ApiResult<long>> CreateChildCategory(AddChildCategoryViewModel viewModel)
@@ -63,7 +63,7 @@ namespace Shop.Api.Controllers
 
             var result = await _category.Addchilld(model);
             var url = Url.Action("GetCategoryById", "Category", new { Id = result.Data }, Request.Scheme);
-            return CommandResult(result, HttpStatusCode.Created, url);
+            return CommandResult(result, HttpStatusCode.Created, url!);
         }
         [HttpPut]
         public async Task<ApiResult> EditCategory(EditCategoryViewModel viewModel)

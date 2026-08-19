@@ -12,7 +12,7 @@ using Shop.Query.BannerAgg.DTOs;
 namespace Shop.Api.Controllers
 
 {
-    //[PermissionChecker(Permission.CRUD_Banner)]
+    [PermissionChecker(Permission.CRUD_Banner)]
     public class BannerController : ApiController
     {
         private readonly IBannerFacade _bannerFacade;

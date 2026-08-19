@@ -9,7 +9,7 @@ namespace Shop.Domain.OrderAgg
 {
     public class Order : AggregateRoot
     {
-        //For EfCore
+        
         private Order() { }
         //Set Order
         public Order(long userId)

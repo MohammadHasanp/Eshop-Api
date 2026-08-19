@@ -12,7 +12,7 @@ namespace Shop.Api.Infrastructure
         public MapperProfile()
         {
             CreateMap<AddUserAddressViewModel, AddUserAddressCommand>().ForMember(dest => dest.Phone,
-              opt => opt.MapFrom(src => new PhoneNumber(src.Phone))); 
+              opt => opt.MapFrom(src => new PhoneNumber(src.Phone)));
 
             CreateMap<AddUserAddressCommand, AddUserAddressViewModel>()
                 .ForMember(dest => dest.Phone,

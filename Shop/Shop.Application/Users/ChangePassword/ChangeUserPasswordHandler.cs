@@ -27,7 +27,7 @@ namespace Shop.Application.Users.ChangePassword
 
             user.ChangePassword(newPasswordHash); 
             await _repository.Save();
-            return OperationResult.Success();
+            return OperationResult.Success(); 
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Shop.Api.Infrastructure.JwtUtil
         {
             var userId = context.Principal!.GetUserId();
             var jwtToken = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-            var token =await _userFacade.GetUserTokenByJwtTokenQuery(jwtToken);
+            var token = await _userFacade.GetUserTokenByJwtTokenQuery(jwtToken);
             if (token == null)
             {
                 context.Fail("شناسه نامعتبر است");
@@ -23,7 +23,7 @@ namespace Shop.Api.Infrastructure.JwtUtil
             }
 
             var user = await _userFacade.GetUserById(userId);
-            if(user == null || user.IsActive == false)
+            if (user == null || user.IsActive == false)
             {
                 context.Fail("حساب کاربری شما غیر فعال است ");
                 return;

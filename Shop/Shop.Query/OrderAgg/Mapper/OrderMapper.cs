@@ -9,25 +9,26 @@ namespace Shop.Query.OrderAgg.Mapper
 {
     public static class OrderMapper
     {
-        public static OrderFilterData MapFilterDate(this Order order,ShopContext  context)
+        public static OrderFilterData MapFilterDate(this Order order, ShopContext context)
         {
             var userFullName = context.Users.Where(u => u.Id == order.UserId).Select(u => u.UserName).First();
 
             return new OrderFilterData()
             {
-                City = order.Address.City,
+                City = order.Address?.City,
                 CreationDate = order.CreationDate,
                 Id = order.Id,
                 ShippingType = order.ShippingMethod?.ShippingType,
-                Shire = order.Address.Shire,
+                Shire = order.Address?.Shire,
                 Status = order.Status,
                 TotalItemCount = order.ItemCount,
                 TotalPrice = order.TotalPrice,
                 UserFullName = userFullName,
-                UserId = order.UserId
+                UserId = order.UserId,
+                LastUpdate = order.LastUpdate,
             };
         }
-        public static async Task<List<OrderItemDto>> GetOrderItem(this OrderDto orderDto,DapperContext dapperContext)
+        public static async Task<List<OrderItemDto>> GetOrderItem(this OrderDto orderDto, DapperContext dapperContext)
         {
             var connection = dapperContext.CreateConnection();
             var sql = @$"SELECT o.Id, s.ShopName ,o.OrderId,o.InventoryId,o.Count,o.price,

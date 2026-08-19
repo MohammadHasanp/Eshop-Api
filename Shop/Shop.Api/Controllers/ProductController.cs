@@ -72,14 +72,14 @@ namespace Shop.Api.Controllers
         [HttpDelete("Image")]
         public async Task<ApiResult> DeleteProductImage(RemoveProductImageViewModel viewModel)
         {
-            var model = new RemoveProductImageCommand(viewModel.productId,viewModel.ImageId);
+            var model = new RemoveProductImageCommand(viewModel.productId, viewModel.ImageId);
             var result = await _productFacade.DeleteImage(model);
             return CommandResult(result);
         }
         [HttpPost("Image")]
         public async Task<ApiResult> AddImage(AddProductImageViewModel viewModel)
         {
-            var model = new AddProductImageCommand(viewModel.ImageFile,viewModel.ProductId,viewModel.Sequence);
+            var model = new AddProductImageCommand(viewModel.ImageFile, viewModel.ProductId, viewModel.Sequence);
             var result = await _productFacade.AddImage(model);
             return CommandResult(result);
         }

@@ -13,7 +13,8 @@ namespace Shop.Infrastructure.Persistent.Ef.ProductAgg
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.ToTable("Products","product");
+            builder.ToTable("Products", "product");
+
             builder.Property(p => p.Title)
                 .IsRequired()
                 .HasMaxLength(100);
@@ -31,7 +32,7 @@ namespace Shop.Infrastructure.Persistent.Ef.ProductAgg
                 .IsRequired()
                 .HasMaxLength(100);
 
-            
+
 
             builder.OwnsOne(b => b.SeoData, option =>
             {
@@ -60,8 +61,8 @@ namespace Shop.Infrastructure.Persistent.Ef.ProductAgg
 
             builder.OwnsMany(p => p.Images, option =>
             {
-                option.ToTable("Images","product");
-                option.Property(p=>p.ImageName)
+                option.ToTable("Images", "product");
+                option.Property(p => p.ImageName)
                 .IsRequired()
                 .HasMaxLength(200);
 
@@ -72,8 +73,10 @@ namespace Shop.Infrastructure.Persistent.Ef.ProductAgg
 
             builder.OwnsMany(p => p.Specifications, option =>
             {
-                option.ToTable("Specifications","product");
-                option.Property(p=>p.Key)
+                option.ToTable("Specifications", "product");
+
+
+                option.Property(p => p.Key)
                 .IsRequired()
                 .HasMaxLength(100);
 

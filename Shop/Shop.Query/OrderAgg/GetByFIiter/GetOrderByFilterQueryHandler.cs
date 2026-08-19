@@ -1,5 +1,6 @@
 ﻿using Common.Query;
 using Microsoft.EntityFrameworkCore;
+using Shop.Domain.OrderAgg.Enums;
 using Shop.Infrastructure.Persistent.Ef._Context;
 using Shop.Query.OrderAgg.DTOs;
 using Shop.Query.OrderAgg.Mapper;
@@ -19,7 +20,7 @@ namespace Shop.Query.OrderAgg.GetByFIiter
             var result = _context.Orders.OrderByDescending(o => o.Id).AsQueryable();
             if (@params.UserId != null)
             {
-                result = result.Where(o=>o.UserId == @params.UserId);
+                result = result.Where(o => o.UserId == @params.UserId);
             }
             if (@params.StartDate != null)
             {
@@ -31,13 +32,18 @@ namespace Shop.Query.OrderAgg.GetByFIiter
             }
             if (@params.Status != null)
             {
-                result = result.Where(o => o.Status == @params.Status);
+                if (@params.Status == OrderStatus.None)
+                    result = result.Where(o => o.Status != @params.Status);
+
+                else
+                    result = result.Where(o => o.Status == @params.Status);
+
             }
-            var skip = (@params.PageId-1)* @params.Take;
+            var skip = (@params.PageId - 1) * @params.Take;
             var orders = await result.Skip(skip).Take(@params.Take).ToListAsync(cancellationToken);
             var model = new OrderFilterResult()
             {
-                Datas =orders.Select(order => order.MapFilterDate(_context)).ToList(),
+                Datas = orders.Select(order => order.MapFilterDate(_context)).ToList(),
                 FilterParams = @params
             };
             return model;

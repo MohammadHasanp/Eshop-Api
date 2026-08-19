@@ -1,5 +1,7 @@
 ﻿<SolutionConfiguration>
   <Settings>
+    <EnableRDI>False</EnableRDI>
+    <RdiConfigured>True</RdiConfigured>
     <SolutionConfigured>True</SolutionConfigured>
   </Settings>
 </SolutionConfiguration>
