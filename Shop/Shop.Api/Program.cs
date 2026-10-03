@@ -1,0 +1,65 @@
+﻿using Common.AspNetCore;
+using Common.AspNetCore.Middlewares;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using shop.Config;
+using Shop.Api.Infrastructure;
+using Shop.Api.Infrastructure.JwtUtil;
+
+var builder = WebApplication.CreateBuilder(args);
+var service = builder.Services;
+// Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+Console.WriteLine($"Connection String: {connectionString}");
+
+ProjectBootstrapper.RegisterShopDependency(service, connectionString);
+DependencyRegister.RegisterApiDependency(service);
+
+service.AddDistributedRedisCache(option =>
+{
+    option.Configuration = "localhost:6379";
+});
+service.AddControllers()
+    .ConfigureApiBehaviorOptions(option =>
+    {
+        option.InvalidModelStateResponseFactory = (context =>
+        {
+            var result = new ApiResult()
+            {
+                IsSuccess = false,
+                MetaData = new()
+                {
+                    AppStatusCode = AppStatusCode.BadRequest,
+                    Message = ModelStateUtil.GetModelStateErrors(context.ModelState)
+                }
+            };
+            return new BadRequestObjectResult(result);
+        });
+    });
+service.AddSwaggerGen();
+service.AddJwtAuthentication(builder.Configuration);
+
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+service.AddEndpointsApiExplorer();
+
+var app = builder.Build();
+// Configure the HTTP request pipeline.
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("v1/swagger.json", "ShopController API V1");
+});
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseCors("ShopApi");
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseApiCustomExceptionHandler();
+app.MapControllers();
+
+app.Run();
