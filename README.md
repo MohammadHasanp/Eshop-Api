@@ -514,12 +514,6 @@ If you find this project helpful, please consider giving it a ⭐ on GitHub!
 
 ---
 
-## 📄 License
-
-This project is licensed under the terms of the **MIT License**. See the [LICENSE](./LICENSE) file for details.
-
----
-
 <div align="center">
 
 Built with ❤️ and .NET 9
