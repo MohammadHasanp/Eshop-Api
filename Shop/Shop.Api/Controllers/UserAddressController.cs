@@ -13,56 +13,49 @@ using Shop.Query.UserAgg.DTOs;
 
 namespace Shop.Api.Controllers
 {
-    public class UserAddressController : ApiController
+    public class UserAddressController(IUserAddressFacade userAddressFacade, IMapper mapper) : ApiController
     {
-        private readonly IUserAddressFacade _userAddressFacade;
-        private readonly IMapper _mapper;
-        public UserAddressController(IUserAddressFacade userAddressFacade, IMapper mapper)
-        {
-            _userAddressFacade = userAddressFacade;
-            _mapper = mapper;
-        }
         [HttpGet("GetAddressBy{AddressId}")]
         public async Task<ApiResult<AddressDto>> GetUserAddressById(long AddressId)
         {
-            var result = await _userAddressFacade.GetAddressById(AddressId);
+            var result = await userAddressFacade.GetAddressById(AddressId);
             return QueryResult(result);
         }
         [HttpGet]
         public async Task<ApiResult<List<AddressDto>>> GetAllAddress()
         {
-            var result = await _userAddressFacade.GetAllUserAddress(User.GetUserId());
+            var result = await userAddressFacade.GetAllUserAddress(User.GetUserId());
             return QueryResult(result);
         }
 
         [HttpPost]
         public async Task<ApiResult> AddUserAddress(AddUserAddressViewModel viewModel)
         {
-            var command = _mapper.Map<AddUserAddressCommand>(viewModel);
+            var command = mapper.Map<AddUserAddressCommand>(viewModel);
             command.UserId = User.GetUserId();
-            var result = await _userAddressFacade.AddUserAddress(command);
+            var result = await userAddressFacade.AddUserAddress(command);
             return CommandResult(result);
         }
         [HttpPut]
         public async Task<ApiResult> EditUserAddress(EditUserAddressViewModel viewModel)
         {
-            var command = _mapper.Map<EditUserAddressCommand>(viewModel);
+            var command = mapper.Map<EditUserAddressCommand>(viewModel);
             command.UserId =User.GetUserId();
-            var result = await _userAddressFacade.EditUserAddress(command);
+            var result = await userAddressFacade.EditUserAddress(command);
             return CommandResult(result);
         }
         [HttpDelete("{addressId}")]
         public async Task<ApiResult> DeleteUserAddress(long addressId)
         {
             var model = new DeleteUserAddressCommand(User.GetUserId(),addressId);
-            var result = await _userAddressFacade.DeleteUserAddress(model);
+            var result = await userAddressFacade.DeleteUserAddress(model);
             return CommandResult(result);
         }
         [HttpPut("ActivateById/{addressId}")]
         public async Task<ApiResult> ActivateUserAddress(long addressId)
         {
             var model = new ActivateUserAddressCommand(User.GetUserId(),addressId);
-            var result = await _userAddressFacade.ActivateUserAddress(model);
+            var result = await userAddressFacade.ActivateUserAddress(model);
             return CommandResult(result);
         }
     }

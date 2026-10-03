@@ -10,26 +10,18 @@ using Shop.Presentation.Facade.OrderAgg;
 
 namespace Shop.Api.Controllers
 {
-    public class TransactionController : ApiController
+    public class TransactionController(IOrderItemFacade orderFacade, IZibalService zibalService) : ApiController
     {
-        private readonly IOrderItemFacade _orderFacade;
-        private readonly IZibalService _zibalService;
-        public TransactionController(IOrderItemFacade orderFacade, IZibalService zibalService)
-        {
-            _orderFacade = orderFacade;
-            _zibalService = zibalService;
-        }
-
         [HttpPost]
         public async Task<ApiResult<string>> CreateTransaction(CreateTransactionViewModel command)
         {
-            var order = await _orderFacade.GetOrderById(command.OrderId);
+            var order = await orderFacade.GetOrderById(command.OrderId);
             if (order == null || order.Address == null && order.ShippingMethod == null)
                 return CommandResult(OperationResult<string>.NotFound());
 
 
             var url = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
-            var result = await _zibalService.StartPay(new ZibalPaymentRequest()
+            var result = await zibalService.StartPay(new ZibalPaymentRequest()
             {
                 Amount = order.TotalPrice,
                 CallBackUrl = $"{url}/api/transaction?orderId={order.Id}&errorRedirect={command.ErrorCallBackUrl}&successRedirect={command.SuccessCallBackUrl}",
@@ -48,12 +40,12 @@ namespace Shop.Api.Controllers
             if (success == 0)
                 return Redirect(errorRedirect);
 
-            var order = await _orderFacade.GetOrderById(orderId);
+            var order = await orderFacade.GetOrderById(orderId);
 
             if (order == null)
                 return Redirect(errorRedirect);
 
-            var result = await _zibalService.Verify(new ZibalVeriyfyRequest(trackId, "zibal"));
+            var result = await zibalService.Verify(new ZibalVeriyfyRequest(trackId, "zibal"));
 
             //if (result.Status != 100)
             //    return Redirect(errorRedirect);
@@ -62,7 +54,7 @@ namespace Shop.Api.Controllers
             if (result.Amount != order.TotalPrice)
                 return Redirect(errorRedirect);
 
-            var commandResult = await _orderFacade.OrderFinally(new OrderFinallyCommand(orderId));
+            var commandResult = await orderFacade.OrderFinally(new OrderFinallyCommand(orderId));
 
             if (commandResult.Status == OperationResultStatus.Success)
                 return Redirect(successRedirect);

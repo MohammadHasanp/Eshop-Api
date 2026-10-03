@@ -13,41 +13,34 @@ using Shop.Query.UserAgg.DTOs;
 namespace Shop.Api.Controllers
 {
     //[Authorize]
-    public class UserController : ApiController
+    public class UserController(IUserFacade userFacade, IMapper mapper) : ApiController
     {
-        private readonly IUserFacade _userFacade;
-        private readonly IMapper _mapper;
-        public UserController(IUserFacade userFacade, IMapper mapper)
-        {
-            _userFacade = userFacade;
-            _mapper = mapper;
-        }
         //[PermissionChecker(Permission.User_Management)]
         [HttpGet]
         public async Task<ApiResult<List<UserDto>>> GetAll()
         {
-            var result = await _userFacade.GetAllUser();
+            var result = await userFacade.GetAllUser();
             return QueryResult(result);
         }
         //[Authorize]
         [HttpGet("Current")]
         public async Task<ApiResult<UserDto>> GetCurrentUser()
         {
-            var result = await _userFacade.GetUserById(User.GetUserId());
+            var result = await userFacade.GetUserById(User.GetUserId());
             return QueryResult(result);
         }
         //[PermissionChecker(Permission.User_Management)]
         [HttpGet("GetByFilter")]
         public async Task<ApiResult<UserFilterResult>> GetByFilter([FromQuery] UserFilterParams @params)
         {
-            var result = await _userFacade.GetUserByFilter(@params);
+            var result = await userFacade.GetUserByFilter(@params);
             return QueryResult(result);
         }
         //[PermissionChecker(Permission.User_Management)]
         [HttpGet("byId/{userId}")]
         public async Task<ApiResult<UserDto>> GetById(long userId)
         {
-            var result = await _userFacade.GetUserById(userId);
+            var result = await userFacade.GetUserById(userId);
             return QueryResult(result);
         }
         //[HttpGet("GetByPhone/{PhoneNumber}")]
@@ -66,7 +59,7 @@ namespace Shop.Api.Controllers
         //[PermissionChecker(Permission.User_Management)]
         public async Task<ApiResult> CreateUser(CreateUserCommand command)
         {
-            var result = await _userFacade.Create(command);
+            var result = await userFacade.Create(command);
             return CommandResult(result);
         }
         [HttpPut("Edit")]
@@ -76,7 +69,7 @@ namespace Shop.Api.Controllers
             var model = new EditUserCommand(userModel.UserName,"test",userModel.Email,userModel.PhoneNumber,
                 userModel.Gender,userModel.Avatar,userModel.UserId);
 
-            var result = await _userFacade.Edit(model);
+            var result = await userFacade.Edit(model);
             return CommandResult(result);
         }
 
@@ -86,7 +79,7 @@ namespace Shop.Api.Controllers
             var userModel = new EditUserCommand(viewModel.UserName, viewModel.FullName, viewModel.Email
                 , viewModel.PhoneNumber, viewModel.Gender, viewModel.Avatar, User.GetUserId());
 
-            var result = await _userFacade.Edit(userModel);
+            var result = await userFacade.Edit(userModel);
             return CommandResult(result);
         }
 
@@ -94,22 +87,22 @@ namespace Shop.Api.Controllers
         //[Authorize]
         public async Task<ApiResult> ChangePassword(ChangePasswordViewModel viewModel)
         {
-            var changePasswordModel = _mapper.Map<ChangeUserPasswordCommand>(viewModel);
+            var changePasswordModel = mapper.Map<ChangeUserPasswordCommand>(viewModel);
             changePasswordModel.UserId = User.GetUserId();
-            var result = await _userFacade.ChangePassword(changePasswordModel);
+            var result = await userFacade.ChangePassword(changePasswordModel);
             return CommandResult(result);
 
         }
         [HttpPost("SetActive")]
         public async Task<ApiResult> SetActive(SetActiveUserCommand command)
         {
-            var result = await _userFacade.SetActive(command);
+            var result = await userFacade.SetActive(command);
             return CommandResult(result);
         }
         [HttpPost("AddUserRole")]
         public async Task<ApiResult> AddUserRole(AddUserRoleCommand command)
         {
-            var result = await _userFacade.AddUserRole(command);
+            var result = await userFacade.AddUserRole(command);
             return CommandResult(result);
         }
     }

@@ -8,37 +8,29 @@ using Shop.Query.ProductAgg.DTOs;
 
 namespace Shop.Api.Controllers
 {
-    public class ShopController : ApiController
+    public class ShopController(IBannerFacade bannerFacade, ISliderFacade sliderFacade, IProductFacade productFacade)
+        : ApiController
     {
-        private readonly IBannerFacade _bannerFacade;
-        private readonly ISliderFacade _sliderFacade;
-        private readonly  IProductFacade _productFacade;
-        public ShopController(IBannerFacade bannerFacade, ISliderFacade sliderFacade, IProductFacade productFacade)
-        {
-            _bannerFacade = bannerFacade;
-            _sliderFacade = sliderFacade;
-            _productFacade = productFacade;
-        }
         [HttpGet]
         public async Task<ApiResult<MainPageViewModel>> GetMainPage()
         {
-            var banners =await _bannerFacade.GetAllBanner();
-            var sliders = await _sliderFacade.GetAllSlider();
-            var latesProductResult = await _productFacade.GetForShop(new ProductShopFilterParams()
+            var banners =await bannerFacade.GetAllBanner();
+            var sliders = await sliderFacade.GetAllSlider();
+            var latesProductResult = await productFacade.GetForShop(new ProductShopFilterParams()
             {
                 PageId = 1,
                 Take = 8,
                 SearchOrderBy = ProductSearchOrderBy.Latest,
                 OnlyAvailableProducts = true
             });
-            var specialProductResult = await _productFacade.GetForShop(new ProductShopFilterParams
+            var specialProductResult = await productFacade.GetForShop(new ProductShopFilterParams
             {
                 PageId = 1,
                 Take = 8,
                 JustHasDiscount = true,
                 OnlyAvailableProducts = true
             });
-            var bestsellerResult = await _productFacade.GetForShop(new ProductShopFilterParams()
+            var bestsellerResult = await productFacade.GetForShop(new ProductShopFilterParams()
             {
                 PageId = 1,
                 Take = 8,

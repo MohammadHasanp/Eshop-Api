@@ -14,39 +14,34 @@ using Shop.Query.ProductAgg.DTOs;
 namespace Shop.Api.Controllers
 {
     //[PermissionChecker(Permission.CRUD_Product)]
-    public class ProductController : ApiController
+    public class ProductController(IProductFacade productFacade) : ApiController
     {
-        private readonly IProductFacade _productFacade;
-        public ProductController(IProductFacade productFacade)
-        {
-            _productFacade = productFacade;
-        }
         [AllowAnonymous]
         [HttpGet]
         public async Task<ApiResult<ProductFilterResult>> GetProductByFilter([FromQuery] ProductFilterParams filterParams)
         {
-            var result = await _productFacade.GetProductByFilter(filterParams);
+            var result = await productFacade.GetProductByFilter(filterParams);
             return QueryResult(result);
         }
         [AllowAnonymous]
         [HttpGet("ForShop")]
         public async Task<ApiResult<ProductShopResult>> GetProductForShopFilter([FromQuery] ProductShopFilterParams @params)
         {
-            var result = await _productFacade.GetForShop(@params);
+            var result = await productFacade.GetForShop(@params);
             return QueryResult(result);
         }
         [AllowAnonymous]
         [HttpGet("byId/{Id}")]
         public async Task<ApiResult<ProductDto>> GetProductById(long Id)
         {
-            var result = await _productFacade.GetProductById(Id);
+            var result = await productFacade.GetProductById(Id);
             return QueryResult(result);
         }
         [AllowAnonymous]
         [HttpGet("BySlug/{Slug}")]
         public async Task<ApiResult<ProductDto>> GetProductBySlug(string Slug)
         {
-            var result = await _productFacade.GetProductBySlug(Slug);
+            var result = await productFacade.GetProductBySlug(Slug);
             return QueryResult(result);
         }
         [HttpPost]
@@ -56,7 +51,7 @@ namespace Shop.Api.Controllers
                 , viewModel.CategoryId, viewModel.SubCategoryId, viewModel.SecondarySubCategory, viewModel.Slug
                 , viewModel.SeoData.MapToSeoData(), viewModel.GetSpecification());
 
-            var result = await _productFacade.Create(model);
+            var result = await productFacade.Create(model);
             return CommandResult(result);
         }
         [HttpPut]
@@ -66,27 +61,27 @@ namespace Shop.Api.Controllers
                 , viewModel.CategoryId, viewModel.SubCategoryId, viewModel.SecondarySubCategory, viewModel.Slug
                 , viewModel.SeoData.MapToSeoData(), viewModel.GetSpecification());
 
-            var result = await _productFacade.Edit(model);
+            var result = await productFacade.Edit(model);
             return CommandResult(result);
         }
         [HttpDelete("Image")]
         public async Task<ApiResult> DeleteProductImage(RemoveProductImageViewModel viewModel)
         {
             var model = new RemoveProductImageCommand(viewModel.productId,viewModel.ImageId);
-            var result = await _productFacade.DeleteImage(model);
+            var result = await productFacade.DeleteImage(model);
             return CommandResult(result);
         }
         [HttpPost("Image")]
         public async Task<ApiResult> AddImage(AddProductImageViewModel viewModel)
         {
             var model = new AddProductImageCommand(viewModel.ImageFile,viewModel.ProductId,viewModel.Sequence);
-            var result = await _productFacade.AddImage(model);
+            var result = await productFacade.AddImage(model);
             return CommandResult(result);
         }
         [HttpGet("Single/{slug}")]
         public async Task<ApiResult<SingleProductDto>> GetSingleProduct(string slug)
         {
-            var result = await _productFacade.GetProductBySlugForSinglePage(slug);
+            var result = await productFacade.GetProductBySlugForSinglePage(slug);
             return QueryResult(result);
         }
     }

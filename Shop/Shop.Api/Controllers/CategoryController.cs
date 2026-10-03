@@ -15,30 +15,25 @@ using System.Net;
 namespace Shop.Api.Controllers
 {
     //[PermissionChecker(Permission.Category_Management)]
-    public class CategoryController : ApiController
+    public class CategoryController(ICategoryFacade category) : ApiController
     {
-        private readonly ICategoryFacade _category;
-        public CategoryController(ICategoryFacade category)
-        {
-            _category = category;
-        }
         [AllowAnonymous]
         [HttpGet]
         public async Task<ApiResult<List<CategoryDto>>> GetCategories()
         {
-            var result = await _category.GetAllCategory();
+            var result = await category.GetAllCategory();
             return QueryResult(result);
         }
         [HttpGet("{id}")]
         public async Task<ApiResult<CategoryDto>> GetCategoryById(long id)
         {
-            var result = await _category.GetCategoryById(id);
+            var result = await category.GetCategoryById(id);
             return QueryResult(result);
         }
         [HttpGet("GetChild/{perntId}")]
         public async Task<ApiResult<List<SubCategoryDto>>> GetCategoriesByParentId(long perntId)
         {
-            var result = await _category.GetCategoryByParentId(perntId);
+            var result = await category.GetCategoryByParentId(perntId);
             return QueryResult(result);
         }
         [HttpPost]
@@ -49,7 +44,7 @@ namespace Shop.Api.Controllers
                 , viewModel.SeoData.MetaKeyWords, viewModel.SeoData.IndexPage, viewModel.SeoData.Canonical
                 , viewModel.SeoData.Schema));
 
-            var result = await _category.Create(model);
+            var result = await category.Create(model);
             var url = Url.Action("GetCategoryById", "Category", new { Id = result.Data }, Request.Scheme);
             return CommandResult(result, HttpStatusCode.Created);
         }
@@ -61,7 +56,7 @@ namespace Shop.Api.Controllers
                 , viewModel.SeoData.MetaKeyWords, viewModel.SeoData.IndexPage, viewModel.SeoData.Canonical
                 , viewModel.SeoData.Schema));
 
-            var result = await _category.Addchilld(model);
+            var result = await category.Addchilld(model);
             var url = Url.Action("GetCategoryById", "Category", new { Id = result.Data }, Request.Scheme);
             return CommandResult(result, HttpStatusCode.Created, url);
         }
@@ -73,13 +68,13 @@ namespace Shop.Api.Controllers
                   , viewModel.SeoData.MetaKeyWords, viewModel.SeoData.IndexPage, viewModel.SeoData.Canonical
                   , viewModel.SeoData.Schema));
 
-            var result = await _category.Edit(model);
+            var result = await category.Edit(model);
             return CommandResult(result);
         }
         [HttpDelete("{categoryId}")]
         public async Task<ApiResult> DeleteCategory(long categoryId)
         {
-            var result = await _category.Delete(categoryId);
+            var result = await category.Delete(categoryId);
             return CommandResult(result);
         }
     }
